@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://java.sun.com/xml/ns/persistence 
+		http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+
+	<persistence-unit name="EINVENTORY_DB_JPA"
+		transaction-type="RESOURCE_LOCAL">
+		<non-jta-data-source>java:comp/env/jdbc/razzeldazzel</non-jta-data-source>
+		<class>com.technath.einventory.dao.CatagoryDO</class>
+		<class>com.technath.einventory.dao.ItemDO</class>
+		<class>com.technath.einventory.dao.InvoiceDO</class>
+		<class>com.technath.einventory.dao.InvoiceItemDO</class>
+		<exclude-unlisted-classes>false</exclude-unlisted-classes>
+		<properties>
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			<!-- since most database servers have slightly different versions of the 
+				SQL, Hibernate needs you to choose a dialect so it knows the subtleties of 
+				talking to that server -->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect" />
+			<!-- this tell Hibernate to update the DDL when it starts, very useful 
+				for development, dangerous in production -->
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+		</properties>
+	</persistence-unit>
+
+</persistence>
+
