@@ -12,9 +12,37 @@
 	margin: 20px;
 }
 </style>
+<script type="text/javascript">
+	function doAjaxGet() {
+		alert("called javascript");
+		// get the form values
+		var invoiceId = $('#invoiceId').val();
+		$.ajax({
+			type : "GET",
+			dataType: 'json',
+			url : "getInvoiceItem.html",
+			data : "invoiceId=" + invoiceId,
+			contentType: 'application/json',
+		    mimeType: 'application/json',
+			success : function(response) {
+				$('#info').html("");
+				// we have the response
+				$('#info').html(response);
+				var obj = JSON.parse(response);
+			},
+			error : function(e) {
+				alert('Error: ' + e);
+
+			}
+		});
+
+	}
+</script>
+
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<title>add catalog</title>
+<title>receive shipment</title>
 
 </head>
 <body>
@@ -25,35 +53,21 @@
 		<%@ include file="/WEB-INF/jsp/header.jsp"%>
 	</div>
 	<div class="container">
-
-		<form:form method="POST" action="#"
-			class="bs-docs-example form-horizontal"  modelAttribute="command">
-			<div class="control-group info" >
-				<form:label path="catalogName" for="invoiceNum">Catalog Name #</form:label>
-				<div class="controls">
-					<form:input path="catalogName" />
-				</div>
-			</div>
-
-			<div class="control-group info">
-				<form:label path="catalogDesc" for="supplierId">Desc</form:label>
-				<div class="controls">
-					<form:input path="catalogDesc" />
-				</div>
-			</div>
-			<div class="control-group info">
-				<form:label path="catagoryId" for="catagoryId">Category</form:label>
-				<div class="controls">
-					<form:select path="catagoryId">
-						<form:options items="${categories}" />
-					</form:select>
-				</div>
-			</div>
-			<div>
-				<button type="submit" class="btn btn-primary">Add Catalog</button>
-			</div>
-		</form:form>
-
+		<div class="control-group info">
+			<table>
+				<tr>
+					<td><select class="form-control" id="invoiceId">
+							<c:forEach var="invoice" items="${invoices}">
+								<option value=${invoice.invoiceId}>${invoice.invoiceNum}</option>
+							</c:forEach>
+					</select></td>
+					
+					<td><a class="btn btn-large btn-info" href="#"
+						onclick="doAjaxGet()">Select Invoice</a></td>
+				</tr>
+			</table>
+		</div>
+		<div id="info" style="color: green;"></div>
 	</div>
 	<div>Footer</div>
 </body>

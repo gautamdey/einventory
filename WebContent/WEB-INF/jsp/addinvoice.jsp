@@ -34,24 +34,18 @@
 					<form:input path="invoiceNum" />
 				</div>
 			</div>
-
 			<div class="control-group info">
 				<form:label path="invoiceDate" for="invoiceDate">Date</form:label>
 				<div class='input-group date' id='datetimepicker1'>
 					<form:input path="invoiceDate" />
 				</div>
 			</div>
-
 			<div class="control-group info">
 				<form:label path="supplierId" for="supplierId">Supplier</form:label>
 				<div class="controls">
-					<form:input path="supplierId" />
-				</div>
-			</div>
-			<div class="control-group info">
-				<form:label path="supplierName" for="supplierName">Supplier Name</form:label>
-				<div class="controls">
-					<form:input path="supplierName" />
+					<form:select path="supplierId">
+						<form:options items="${suppliers}" />
+					</form:select>
 				</div>
 			</div>
 			<div>

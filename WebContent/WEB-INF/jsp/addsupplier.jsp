@@ -62,6 +62,12 @@ body {
 				</div>
 			</div>
 			<div class="control-group info">
+				<form:label path="bankName" for="bankName">Bank Name</form:label>
+				<div class="controls">
+					<form:input path="bankName" />
+				</div>
+			</div>
+			<div class="control-group info">
 				<form:label path="accountNumber" for="accountNumber">Bank Account</form:label>
 				<div class="controls">
 					<form:input path="accountNumber" />
@@ -72,19 +78,15 @@ body {
 				<div class="controls">
 					<form:input path="accountName" />
 				</div>
-			</div class="control-group info">
+			</div>
+
 			<div class="control-group info">
 				<form:label path="ifcsCode" for="ifcsCode">IFCS Code</form:label>
 				<div class="controls">
 					<form:input path="ifcsCode" />
 				</div>
 			</div>
-			<div class="control-group info">
-				<form:label path="bankName" for="bankName">Bank Name</form:label>
-				<div class="controls">
-					<form:input path="bankName" />
-				</div>
-			</div>
+
 			<div class="control-group info">
 				<form:label path="bankBranch" for="bankBranch">Bank Branch</form:label>
 				<div class="controls">
@@ -92,7 +94,7 @@ body {
 				</div>
 			</div>
 			<div>
-				<button type="submit" class="btn btn-primary">Add Item</button>
+				<button type="submit" class="btn btn-primary">Add Supplier</button>
 			</div>
 		</form:form>
 	</div>

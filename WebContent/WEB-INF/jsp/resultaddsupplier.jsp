@@ -23,9 +23,9 @@
 		<%@ include file="/WEB-INF/jsp/header.jsp"%>
 	</div>
 	<div class="bs-example">
-		Invoice ${invoiceId} Created
+		Supplier Created
 		<div>
-			<a href="addsupplier.html">add more invoice </a>
+			<a href="addsupplier.html">add more supplier </a>
 		</div>
 	</div>
 	<div>Footer</div>

@@ -28,6 +28,7 @@ import com.technath.einventory.dao.CatalogDO;
 import com.technath.einventory.dao.InvoiceDO;
 import com.technath.einventory.dao.InvoiceItemDO;
 import com.technath.einventory.dao.ItemDO;
+import com.technath.einventory.dao.SupplierDO;
 import com.technath.einventory.service.ListCatalog;
 
 @Controller
@@ -49,8 +50,17 @@ public class InvoiceController {
 
 	@RequestMapping(value = "/addinvoice", method = RequestMethod.GET)
 	@Transactional
-	public ModelAndView newInvoiceGet(Model model) {
-		return new ModelAndView("addinvoice", "command", new InvoiceDO());
+	public String newInvoiceGet(Model model) {
+		Query query = entityManager.createQuery("select c from SupplierDO c" );
+		List<SupplierDO> resultSupplier = query.getResultList();
+		Map< Integer, String > suppliers = new HashMap<Integer,String>();
+		for(SupplierDO supplier : resultSupplier){
+			suppliers.put(new Integer(supplier.getSupplierId()), supplier.getSupplierName());
+		}
+		InvoiceDO emptyItem = new InvoiceDO();
+		model.addAttribute("command",emptyItem);
+		model.addAttribute("suppliers",suppliers);
+		return "addinvoice";
 	}
 
 	@RequestMapping(value = "/addinvoice", method = RequestMethod.POST)
@@ -85,22 +95,24 @@ public class InvoiceController {
 		emptyItem.setInvoiceId(invoiceId);
 		Query query = entityManager.createQuery("select c from CatagoryDO c" );
 		List<CatagoryDO> resultList = query.getResultList();
-		Map< Integer, String > categories = new HashMap();
+		Map< Integer, String > categories = new HashMap<Integer,String>();
 		for(CatagoryDO category : resultList){
 			categories.put(new Integer(category.getCatagoryId()), category.getCatagoryName());
 		}
-		model.addAttribute("command",emptyItem);
 		
 		query = entityManager.createQuery("select c from CatalogDO c " );
 		List<CatalogDO> resultListCatalog = query.getResultList();
-		Map< Integer, String > catalogs = new HashMap();
+		Map< Integer, String > catalogs = new HashMap<Integer,String>();
 		for(CatalogDO catelog : resultListCatalog){
 			catalogs.put(new Integer(catelog.getCatalogId()), catelog.getCatalogName());
 		}
 		
+	
+		model.addAttribute("command",emptyItem);
 		model.addAttribute("command",emptyItem);
 		model.addAttribute("categories",categories);
 		model.addAttribute("catalogs",catalogs);
+	
 		
 //		return new ModelAndView("addinvoiceitem", "command", emptyItem);
 		return "addinvoiceitem";
