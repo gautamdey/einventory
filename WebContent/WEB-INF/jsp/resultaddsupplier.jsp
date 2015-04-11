@@ -25,7 +25,7 @@
 	<div class="bs-example">
 		Supplier Created
 		<div>
-			<a href="addsupplier.html">add more supplier </a>
+			<a href="/einventory-web/addsupplier.html">add more supplier </a>
 		</div>
 	</div>
 	<div>Footer</div>

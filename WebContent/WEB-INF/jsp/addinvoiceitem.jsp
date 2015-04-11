@@ -66,13 +66,13 @@
 			<div class="control-group info">
 				<form:label path="shippingCost" for="shippingCost">shipping cost</form:label>
 				<div class="controls">
-					<form:input path="shippingCost" />
+					<form:input path="shippingCost" readonly="true"/>
 				</div>
 			</div>
 			<div class="control-group info">
-				<form:label path="importDuty" for="importDuty">Import Duty</form:label>
+				<form:label path="additionalCost" for="additionalCost">Additional Cost</form:label>
 				<div class="controls">
-					<form:input path="importDuty" />
+					<form:input path="additionalCost" />
 				</div>
 			</div>
 			<div class="control-group info">
@@ -84,7 +84,7 @@
 			<div class="control-group info">
 				<form:label path="invoiceId" for="invoiceId">Invoice ID </form:label>
 				<div class="controls">
-					<form:input path="invoiceId" />
+					<form:input path="invoiceId" readonly="true"/>
 				</div>
 			</div>
 			<div>

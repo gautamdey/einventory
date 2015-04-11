@@ -21,16 +21,19 @@
 		<!-- Collection of nav links, forms, and other content for toggling -->
 		<div id="navbarCollapse" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="welcome.html">Home</a></li>
-				<li><a href="listcatagory.html">Category</a></li>
-				<li><a href="listinvoice.html">Invoice</a></li>
-				<li><a href="listsupplier.html">Supplier</a></li>
-				<li><a href="listcatalog.html">Catalog</a></li>
+				<li class="active"><a href="/einventory-web/welcome.html">Home</a></li>
+				<li><a href="/einventory-web/listcatagory.html">Category</a></li>
+				<li><a href="/einventory-web/invoice/listinvoice.html">Invoice</a></li>
+				<li><a href="/einventory-web/listsupplier.html">Supplier</a></li>
+				<li><a href="/einventory-web/listcatalog.html">Catalog</a></li>
+				<li><a href="/einventory-web/getInvoiceItem.html">Test</a></li>
+
+				
 				<li class="dropdown"><a data-toggle="dropdown"
 					class="dropdown-toggle" href="#">Stock <b class="caret"></b></a>
 					<ul role="menu" class="dropdown-menu">
 						<li><a href="#">View Item Stock</a></li>
-						<li><a href="receiveshipment.html">Receive Shipment</a></li>
+						<li><a href="/einventory-web/shipment/checkinshipmentstart.html">Receive Shipment</a></li>
 					</ul></li>
 			</ul>
 			<form role="search" class="navbar-form navbar-left">

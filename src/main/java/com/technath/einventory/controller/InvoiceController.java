@@ -1,5 +1,7 @@
 package com.technath.einventory.controller;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -32,12 +34,13 @@ import com.technath.einventory.dao.SupplierDO;
 import com.technath.einventory.service.ListCatalog;
 
 @Controller
+@RequestMapping(value = "/invoice")
 public class InvoiceController {
 	@PersistenceContext
 	protected EntityManager entityManager;
 
 
-	@RequestMapping("/listinvoice")
+	@RequestMapping(value = "/listinvoice", method = RequestMethod.GET)
 	public String listCatalogy(Model model) {
 
 		Query query = entityManager.createQuery("select c from InvoiceDO c" );
@@ -58,6 +61,8 @@ public class InvoiceController {
 			suppliers.put(new Integer(supplier.getSupplierId()), supplier.getSupplierName());
 		}
 		InvoiceDO emptyItem = new InvoiceDO();
+
+		
 		model.addAttribute("command",emptyItem);
 		model.addAttribute("suppliers",suppliers);
 		return "addinvoice";
@@ -90,10 +95,29 @@ public class InvoiceController {
 
 	@RequestMapping(value = "/addinvoiceitem", method = RequestMethod.GET)
 	@Transactional
-	public String newInvoiceItemGet(@RequestParam("invoiceid")int invoiceId,Model model) {
+	public String newInvoiceItemGet(@RequestParam("invoiceid")int invoiceId,Model model) throws Exception {
+		Query query = entityManager.createQuery("select c from InvoiceDO c " );
+		List<InvoiceDO> invoiceList = query.getResultList();
+		if ( invoiceList==null || invoiceList.isEmpty()==true){
+		  throw new Exception("not a valid invoiceid");
+		}
+		
+		InvoiceDO invoiceDO = invoiceList.get(0);
+		int itemCount = invoiceDO.getItemCount();
+		BigDecimal shippingCost = invoiceDO.getShippingCost();
+		BigDecimal shippingCostPerItem = new BigDecimal(0.0);
+//		shippingCostPerItem.setScale(0, RoundingMode.CEILING);
+		System.out.println("shippingCost::" +shippingCost + " itemCount:: " +itemCount);
+		if( shippingCost!=null){
+			shippingCostPerItem = shippingCost.divide(new BigDecimal(itemCount),0,RoundingMode.CEILING);
+			System.out.println("shippingCostPerItem::" +shippingCostPerItem );
+		}
+
 		InvoiceItemDO emptyItem = new InvoiceItemDO();
 		emptyItem.setInvoiceId(invoiceId);
-		Query query = entityManager.createQuery("select c from CatagoryDO c" );
+		emptyItem.setShippingCost(shippingCostPerItem);
+		
+		 query = entityManager.createQuery("select c from CatagoryDO c" );
 		List<CatagoryDO> resultList = query.getResultList();
 		Map< Integer, String > categories = new HashMap<Integer,String>();
 		for(CatagoryDO category : resultList){
@@ -107,7 +131,7 @@ public class InvoiceController {
 			catalogs.put(new Integer(catelog.getCatalogId()), catelog.getCatalogName());
 		}
 		
-	
+			
 		model.addAttribute("command",emptyItem);
 		model.addAttribute("command",emptyItem);
 		model.addAttribute("categories",categories);

@@ -10,6 +10,13 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tbl_invoice_items")
 public class InvoiceItemDO {
+	
+	public InvoiceItemDO(){
+		shippingCost = new BigDecimal(0.0);
+		additionalCost = new BigDecimal(0.0);
+		costPrice = new BigDecimal(0.0);
+	}
+	
 	@Id
 	@Column(name = "itemcode")
 	private String itemCode;
@@ -29,8 +36,8 @@ public class InvoiceItemDO {
 	@Column(name = "shippingcost")
 	private BigDecimal shippingCost;
 
-	@Column(name = "importduty")
-	private BigDecimal importDuty;
+	@Column(name = "additionalcost")
+	private BigDecimal additionalCost;
 
 	@Column(name = "costprice")
 	private BigDecimal costPrice;
@@ -95,12 +102,13 @@ public class InvoiceItemDO {
 		this.shippingCost = shippingCost;
 	}
 
-	public BigDecimal getImportDuty() {
-		return importDuty;
+
+	public BigDecimal getAdditionalCost() {
+		return additionalCost;
 	}
 
-	public void setImportDuty(BigDecimal importDuty) {
-		this.importDuty = importDuty;
+	public void setAdditionalCost(BigDecimal additionalCost) {
+		this.additionalCost = additionalCost;
 	}
 
 	public BigDecimal getCostPrice() {

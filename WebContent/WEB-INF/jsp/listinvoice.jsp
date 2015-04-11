@@ -39,9 +39,12 @@
 					<tr>
 						<td>${invoice.invoiceNum}</td>
 						<td>${invoice.invoiceDate}</td>
-						<td>${invoice.supplierName}</td>
+						<td>${invoice.supplierId}</td>
 						<td>
-						<a class="btn btn-large btn-info" href="viewinvoicedetail.html?invoiceid=${invoice.invoiceId}">View Items</a>
+						<a class="btn btn-large btn-info" href="/einventory-web/invoice/editinvoicedetail.html?invoiceid=${invoice.invoiceId}">View/Edit Invoice</a>
+						</td>
+						<td>
+						<a class="btn btn-large btn-info" href="/einventory-web/invoice/viewinvoicedetail.html?invoiceid=${invoice.invoiceId}">View Items</a>
 						</td>
 					</tr>
 				</c:forEach>
@@ -49,7 +52,7 @@
 		</table>
 
 		<div id="browse_app">
-			<a class="btn btn-large btn-info" href="addinvoice.html">Add Invoice</a>
+			<a class="btn btn-large btn-info" href="invoice/addinvoice.html">Add Invoice</a>
 		</div>
 	</div>
 	<div>Footer</div>

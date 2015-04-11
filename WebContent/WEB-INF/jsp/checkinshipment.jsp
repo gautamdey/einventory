@@ -25,35 +25,32 @@
 		<%@ include file="/WEB-INF/jsp/header.jsp"%>
 	</div>
 	<div class="bs-example">
-			<a class="btn btn-large btn-info" href="/einventory-web/invoice/addinvoiceitem.html?invoiceid=${invoiceid}">Add Invoice Item</a>
-</div>	
+		<a class="btn btn-large btn-info"
+			href="/einventory-web/invoice/addinvoiceitem.html?invoiceid=${invoiceid}">Checkin Item</a>
+	</div>
 	<div class="bs-example">
-
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<td>Item Code #</td>
-					<td>Item Name</td>
-					<td>Item Desc</td>
-					<td>Cost Price</td>
-					<td>Additional Cost</td>
-					<td>Catalog #</td>
-
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="invoiceitem" items="${invoiceitems}">
+		<form:form method="POST" >
+			<table class="table table-striped">
+				<thead>
 					<tr>
-						<td>${invoiceitem.itemCode}</td>
-						<td>${invoiceitem.itemName}</td>
-						<td>${invoiceitem.itemDesc}</td>
-						<td>${invoiceitem.costPrice}</td>
-						<td>${invoiceitem.additionalCost}</td>
-						<td>${invoiceitem.catagoryId}</td>						
+						<td>Item Code #</td>
+						<td>Item Name</td>
+						<td>#</td>
+
 					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					<c:forEach var="invoiceitem" items="${itemlists}">
+						<tr>
+							<td>${invoiceitem.itemCode}</td>
+							<td>${invoiceitem.itemName}</td>
+							<td><form:checkbox path="itemCode" value="${invoiceitem.itemCode}" />Java </td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+			<form:hidden path="invoiceId" />
+		</form:form>
 	</div>
 	<div>Footer</div>
 </body>

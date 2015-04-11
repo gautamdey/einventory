@@ -25,10 +25,10 @@
 	<div class="bs-example">
 		Invoice ${invoiceId} Created
 		<div>
-			<a href="addinvoice.html">add more invoice </a>
+			<a href="/einventory-web/invoice/addinvoice.html">add more invoice </a>
 		</div>
 		<div>
-			<a href="addinvoiceitem.html?invoiceid=${invoiceId}">Add item to
+			<a href="/einventory-web/invoice/addinvoiceitem.html?invoiceid=${invoiceId}">Add item to
 				Invoice</a>
 				
 				 <c:out value="${invoiceId}"/>

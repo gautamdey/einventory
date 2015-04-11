@@ -48,6 +48,30 @@
 					</form:select>
 				</div>
 			</div>
+			<div class="control-group info">
+				<form:label path="importduty" for="importduty">Import Duty</form:label>
+				<div class="controls">
+					<form:input path="importduty" />
+				</div>
+			</div>
+			<div class="control-group info">
+				<form:label path="shippingCost" for="shippingCost">Shipping Cost</form:label>
+				<div class="controls">
+					<form:input path="shippingCost" />
+				</div>
+			</div>
+			<div class="control-group info">
+				<form:label path="itemCount" for="itemCount">Item Count</form:label>
+				<div class="controls">
+					<form:input path="itemCount" />
+				</div>
+			</div>
+			<div class="control-group info">
+				<form:label path="netAmount" for="netAmount">Net Amount</form:label>
+				<div class="controls">
+					<form:input path="netAmount" />
+				</div>
+			</div>
 			<div>
 				<button type="submit" class="btn btn-primary">Add Invoice</button>
 			</div>
