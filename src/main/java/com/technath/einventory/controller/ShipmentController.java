@@ -27,7 +27,6 @@ import com.technath.einventory.dao.InvoiceDO;
 import com.technath.einventory.dao.InvoiceItemDO;
 import com.technath.einventory.dao.StockItemDO;
 import com.technath.einventory.entity.ShipmentCheckin;
-import com.technath.einventory.entity.Test;
 
 @Controller
 @RequestMapping(value="/shipment")
@@ -46,14 +45,14 @@ public class ShipmentController {
 		return "receiveshipment";
 	}
 
-	@RequestMapping(value="/getInvoiceItem",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public  Object getInvoiceItem(@RequestParam("invoiceId")int invoiceId, Model model ){
-		Query query = entityManager.createQuery("select c from InvoiceItemDO c where c.invoiceId="+invoiceId );
-		List<InvoiceItemDO> resultList = query.getResultList();
-		System.out.println("getInvoiceItem is called ");
-		return new Test();
-	}
+//	@RequestMapping(value="/getInvoiceItem",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+//	@ResponseBody
+//	public  Object getInvoiceItem(@RequestParam("invoiceId")int invoiceId, Model model ){
+//		Query query = entityManager.createQuery("select c from InvoiceItemDO c where c.invoiceId="+invoiceId );
+//		List<InvoiceItemDO> resultList = query.getResultList();
+//		System.out.println("getInvoiceItem is called ");
+//		return new Test();
+//	}
 	
 	
 	
