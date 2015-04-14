@@ -42,6 +42,30 @@
 				</div>
 			</div>
 			<div class="control-group info">
+				<form:label path="color" for="color">Color</form:label>
+				<div class="controls">
+					<form:input path="color" />
+				</div>
+			</div>
+			<div class="control-group info">
+				<form:label path="embroidery" for="embroidery">Embroidery Work</form:label>
+				<div class="controls">
+					<form:input path="embroidery" />
+				</div>
+			</div>
+			<div class="control-group info">
+				<form:label path="stitching" for="stitching">Stitching</form:label>
+				<div class="controls">
+					<form:input path="stitching" />
+				</div>
+			</div>
+			<div class="control-group info">
+				<form:label path="stitchingDetail" for="stitchingDetail">Stitching Detail</form:label>
+				<div class="controls">
+					<form:input path="stitchingDetail" />
+				</div>
+			</div>
+			<div class="control-group info">
 				<form:label path="itemDesc" for="itemDesc">Description</form:label>
 				<div class="controls">
 					<form:input path="itemDesc" />
@@ -66,7 +90,7 @@
 			<div class="control-group info">
 				<form:label path="shippingCost" for="shippingCost">shipping cost</form:label>
 				<div class="controls">
-					<form:input path="shippingCost" readonly="true"/>
+					<form:input path="shippingCost" readonly="true" />
 				</div>
 			</div>
 			<div class="control-group info">
@@ -81,10 +105,16 @@
 					<form:input path="costPrice" />
 				</div>
 			</div>
+						<div class="control-group info">
+				<form:label path="discount" for="discount">Discount </form:label>
+				<div class="controls">
+					<form:input path="discount" />
+				</div>
+			</div>
 			<div class="control-group info">
 				<form:label path="invoiceId" for="invoiceId">Invoice ID </form:label>
 				<div class="controls">
-					<form:input path="invoiceId" readonly="true"/>
+					<form:input path="invoiceId" readonly="true" />
 				</div>
 			</div>
 			<div>

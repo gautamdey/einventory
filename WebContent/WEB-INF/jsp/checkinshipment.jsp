@@ -24,34 +24,18 @@
 	<div>
 		<%@ include file="/WEB-INF/jsp/header.jsp"%>
 	</div>
-	<div class="bs-example">
-		<a class="btn btn-large btn-info"
-			href="/einventory-web/invoice/addinvoiceitem.html?invoiceid=${invoiceid}">Checkin Item</a>
-	</div>
-	<div class="bs-example">
-		<form:form method="POST" >
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<td>Item Code #</td>
-						<td>Item Name</td>
-						<td>#</td>
+	<form:form method="POST" action="/einventory-web/shipment/checkinshipment.html" modelAttribute="command">
+		<div class="bs-example">Items :</div>
+		<div class="bs-example">
+			<form:checkboxes items="${itemlists}" path="selectedItems"
+				itemLabel="itemName" itemValue="itemCode" delimiter=" <br/>" />
+			<form:hidden path="invoiceId" value="${invoiceId}" />
 
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="invoiceitem" items="${itemlists}">
-						<tr>
-							<td>${invoiceitem.itemCode}</td>
-							<td>${invoiceitem.itemName}</td>
-							<td><form:checkbox path="itemCode" value="${invoiceitem.itemCode}" />Java </td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-			<form:hidden path="invoiceId" />
-		</form:form>
-	</div>
+		</div>
+		<div class="bs-example">
+			<button type="submit" class="btn btn-primary">Checkin Item</button>
+		</div>
+	</form:form>
 	<div>Footer</div>
 </body>
 </html>

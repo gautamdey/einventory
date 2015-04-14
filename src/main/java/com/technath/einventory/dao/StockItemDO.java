@@ -1,35 +1,63 @@
 package com.technath.einventory.dao;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tbl_invoice_items")
-public class InvoiceItemDO {
-	
-	public InvoiceItemDO(){
+@Table(name = "tbl_stock_item")
+public class StockItemDO {
+
+	public StockItemDO(){
 		shippingCost = new BigDecimal(0.0);
 		additionalCost = new BigDecimal(0.0);
 		costPrice = new BigDecimal(0.0);
+		totalCost = new BigDecimal(0.0);
 	}
-	
+	public StockItemDO(InvoiceItemDO item){
+		this.additionalCost=item.getAdditionalCost();
+		this.catagoryId= item.getCatagoryId();
+		this.catalogId = item.getCatalogId();
+		this.costPrice = item.getCostPrice();
+		this.invoiceId = item.getInvoiceId();
+		this.itemCode = item.getItemCode();
+		this.itemDesc = item.getItemDesc();
+		this.itemName= item.getItemName();
+		this.shippingCost = item.getShippingCost();
+		this.stockDate = new Date();
+		this.totalCost = new BigDecimal(0.0);
+		this.totalCost = costPrice.add(additionalCost).add(shippingCost);
+		
+	}
+
+
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "stockid")
+	private int stockId;
+	
+	@Column(name = "itemid")
+	private int itemId;
+
+
 	@Column(name = "itemcode")
 	private String itemCode;
-	
+
 	@Column(name = "itemname")
 	private String itemName;
-	
+
 	@Column(name = "itemdesc")
 	private String itemDesc;
-	
+
 	@Column(name = "catagoryid")
 	private String catagoryId;
-	
+
 	@Column(name = "catalogid")
 	private String catalogId;
 
@@ -41,30 +69,20 @@ public class InvoiceItemDO {
 
 	@Column(name = "costprice")
 	private BigDecimal costPrice;
-	
+
+	@Column(name = "totalcost")
+	private BigDecimal totalCost;
+
+	@Column(name = "suppliername")
+	private int supplierName;
+
 	@Column(name = "invoiceid")
 	private int invoiceId;
 
-	@Column(name = "color")
-	private String color ;
-	
-	@Column(name = "embroidery")
-	private String embroidery ;
-	
-	@Column(name = "stitching")
-	private BigDecimal stitching ;
+	@Column(name = "stockdate")
+	private Date stockDate;
 
-	@Column(name = "stitchingdetail")
-	private String stitchingDetail ;
-	
 
-	@Column(name = "discount")
-	private BigDecimal discount ;
-	
-	@Column(name = "netcostprice")
-	private BigDecimal netCostPrice ;
-	
-	
 	public int getInvoiceId() {
 		return invoiceId;
 	}
@@ -121,7 +139,6 @@ public class InvoiceItemDO {
 		this.shippingCost = shippingCost;
 	}
 
-
 	public BigDecimal getAdditionalCost() {
 		return additionalCost;
 	}
@@ -138,55 +155,40 @@ public class InvoiceItemDO {
 		this.costPrice = costPrice;
 	}
 
-	public String getColor() {
-		return color;
+	public int getItemId() {
+		return itemId;
+	}
+	public void setItemId(int itemId) {
+		this.itemId = itemId;
+	}
+	public BigDecimal getTotalCost() {
+		return totalCost;
 	}
 
-	public void setColor(String color) {
-		this.color = color;
+	public void setTotalCost(BigDecimal totalCost) {
+		this.totalCost = totalCost;
 	}
 
-	public String getEmbroidery() {
-		return embroidery;
+	public int getSupplierName() {
+		return supplierName;
 	}
 
-	public void setEmbroidery(String embroidery) {
-		this.embroidery = embroidery;
+	public void setSupplierName(int supplierName) {
+		this.supplierName = supplierName;
 	}
 
-
-
-	public String getStitchingDetail() {
-		return stitchingDetail;
+	public Date getStockDate() {
+		return stockDate;
 	}
 
-	public void setStitchingDetail(String stitchingDetail) {
-		this.stitchingDetail = stitchingDetail;
+	public void setStockDate(Date stockate) {
+		this.stockDate = stockDate;
+	}
+	public int getStockId() {
+		return stockId;
+	}
+	public void setStockId(int stockId) {
+		this.stockId = stockId;
 	}
 
-	public BigDecimal getStitching() {
-		return stitching;
-	}
-
-	public void setStitching(BigDecimal stitching) {
-		this.stitching = stitching;
-	}
-
-
-	public BigDecimal getDiscount() {
-		return discount;
-	}
-
-	public void setDiscount(BigDecimal discount) {
-		this.discount = discount;
-	}
-
-	public BigDecimal getNetCostPrice() {
-		return netCostPrice;
-	}
-
-	public void setNetCostPrice(BigDecimal netCostPrice) {
-		this.netCostPrice = netCostPrice;
-	}
-	
 }

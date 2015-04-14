@@ -146,6 +146,8 @@ public class InvoiceController {
 	@Transactional
 	public ModelAndView newInvoiceItemPost(@ModelAttribute("SpringWeb")InvoiceItemDO item, 
 			   ModelMap model) {
+		BigDecimal netCost = item.getCostPrice().subtract(item.getCostPrice().divide(new BigDecimal(100.00)).multiply(item.getDiscount())).add(item.getShippingCost()).add(item.getAdditionalCost());
+		item.setNetCostPrice(netCost);
 		entityManager.persist(item);
 		entityManager.flush(); 
 		ModelAndView mav = new ModelAndView();
