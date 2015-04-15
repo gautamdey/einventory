@@ -19,6 +19,7 @@ public class StockItemDO {
 		additionalCost = new BigDecimal(0.0);
 		costPrice = new BigDecimal(0.0);
 		totalCost = new BigDecimal(0.0);
+		
 	}
 	public StockItemDO(InvoiceItemDO item){
 		this.additionalCost=item.getAdditionalCost();
@@ -32,7 +33,9 @@ public class StockItemDO {
 		this.shippingCost = item.getShippingCost();
 		this.stockDate = new Date();
 		this.totalCost = new BigDecimal(0.0);
-		this.totalCost = costPrice.add(additionalCost).add(shippingCost);
+		this.totalCost = item.getNetCostPrice();
+		this.color= item.getColor();
+		this.embroidery= item.getEmbroidery();
 		
 	}
 
@@ -82,7 +85,12 @@ public class StockItemDO {
 	@Column(name = "stockdate")
 	private Date stockDate;
 
-
+	@Column(name = "color")
+	private String color ;
+	
+	@Column(name = "embroidery")
+	private String embroidery ;
+	
 	public int getInvoiceId() {
 		return invoiceId;
 	}
@@ -181,7 +189,7 @@ public class StockItemDO {
 		return stockDate;
 	}
 
-	public void setStockDate(Date stockate) {
+	public void setStockDate(Date stockDate) {
 		this.stockDate = stockDate;
 	}
 	public int getStockId() {
@@ -189,6 +197,12 @@ public class StockItemDO {
 	}
 	public void setStockId(int stockId) {
 		this.stockId = stockId;
+	}
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
 	}
 
 }

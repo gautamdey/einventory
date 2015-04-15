@@ -15,6 +15,7 @@ public class InvoiceItemDO {
 		shippingCost = new BigDecimal(0.0);
 		additionalCost = new BigDecimal(0.0);
 		costPrice = new BigDecimal(0.0);
+		discount= new BigDecimal(0.0);
 	}
 	
 	@Id
