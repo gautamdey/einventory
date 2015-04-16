@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.technath.einventory.config.ConstParams;
 import com.technath.einventory.dao.InvoiceDO;
 import com.technath.einventory.dao.InvoiceItemDO;
 import com.technath.einventory.dao.StockItemDO;
@@ -69,7 +70,7 @@ public class ShipmentController {
 	@RequestMapping(value = "/checkinshipment", method = RequestMethod.GET)
 	@Transactional
 	public String checkinShipmentGet(@RequestParam("invoiceId")int invoiceId,Model model) {
-		Query query = entityManager.createQuery("select c from InvoiceItemDO c where invoiceid="+invoiceId );
+		Query query = entityManager.createQuery("select c from InvoiceItemDO c where invoiceid="+invoiceId +" and received='N'");
 		System.out.println("inside checkinShipmentGet");
 		List<InvoiceItemDO> resultList = query.getResultList();
 		ShipmentCheckin checkinForm = new ShipmentCheckin();
@@ -99,6 +100,8 @@ public class ShipmentController {
 
 				StockItemDO stockItem = new StockItemDO(item);
 				entityManager.persist(stockItem);	
+				item.setReceived(ConstParams.YES);
+				entityManager.merge(item);
 				entityManager.flush();
 			}
 		}

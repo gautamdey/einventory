@@ -1,6 +1,7 @@
 package com.technath.einventory.config;
 
 import java.util.LinkedHashMap;
+import org.springframework.context.annotation.Import;
 import java.util.Map;
 
 import org.springframework.context.annotation.Bean;
@@ -8,7 +9,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.http.MediaType;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -18,6 +18,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableWebMvc
 @Configuration
 @ComponentScan(basePackages = { "com.technath.einventory.controller" ,"com.technath.einventory.config","com.technath.einventory.service"})
+//@Import({ SecurityConfig.class })
 public class MvcConfig extends WebMvcConfigurerAdapter {
  
 //    @Override

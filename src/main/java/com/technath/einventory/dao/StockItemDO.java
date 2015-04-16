@@ -1,6 +1,7 @@
 package com.technath.einventory.dao;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.technath.einventory.config.ConstParams;
 
 @Entity
 @Table(name = "tbl_stock_item")
@@ -22,18 +25,17 @@ public class StockItemDO {
 		
 	}
 	public StockItemDO(InvoiceItemDO item){
-		this.additionalCost=item.getAdditionalCost();
+		this.additionalCost=item.getAdditionalCost().divide(ConstParams.DOLLAR_CONVERTION_RATE,2,RoundingMode.CEILING);
 		this.catagoryId= item.getCatagoryId();
 		this.catalogId = item.getCatalogId();
-		this.costPrice = item.getCostPrice();
+		this.costPrice = item.getCostPrice().divide(ConstParams.DOLLAR_CONVERTION_RATE,2,RoundingMode.CEILING);
 		this.invoiceId = item.getInvoiceId();
 		this.itemCode = item.getItemCode();
 		this.itemDesc = item.getItemDesc();
 		this.itemName= item.getItemName();
-		this.shippingCost = item.getShippingCost();
+		this.shippingCost = item.getShippingCost().divide(ConstParams.DOLLAR_CONVERTION_RATE,2,RoundingMode.CEILING);
 		this.stockDate = new Date();
-		this.totalCost = new BigDecimal(0.0);
-		this.totalCost = item.getNetCostPrice();
+		this.totalCost = item.getNetCostPrice().divide(ConstParams.DOLLAR_CONVERTION_RATE,2,RoundingMode.CEILING);
 		this.color= item.getColor();
 		this.embroidery= item.getEmbroidery();
 		

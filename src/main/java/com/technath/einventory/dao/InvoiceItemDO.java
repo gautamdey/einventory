@@ -65,6 +65,9 @@ public class InvoiceItemDO {
 	@Column(name = "netcostprice")
 	private BigDecimal netCostPrice ;
 	
+	@Column(name = "received")
+	private String received;
+	
 	
 	public int getInvoiceId() {
 		return invoiceId;
@@ -188,6 +191,14 @@ public class InvoiceItemDO {
 
 	public void setNetCostPrice(BigDecimal netCostPrice) {
 		this.netCostPrice = netCostPrice;
+	}
+
+	public String getReceived() {
+		return received;
+	}
+
+	public void setReceived(String received) {
+		this.received = received;
 	}
 	
 }

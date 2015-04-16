@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.technath.einventory.config.ConstParams;
 import com.technath.einventory.dao.CatagoryDO;
 import com.technath.einventory.dao.CatalogDO;
 import com.technath.einventory.dao.InvoiceDO;
@@ -148,6 +149,7 @@ public class InvoiceController {
 			   ModelMap model) {
 		BigDecimal netCost = item.getCostPrice().subtract(item.getCostPrice().divide(new BigDecimal(100.00)).multiply(item.getDiscount())).add(item.getShippingCost()).add(item.getAdditionalCost());
 		item.setNetCostPrice(netCost);
+		item.setReceived(ConstParams.NO);
 		entityManager.persist(item);
 		entityManager.flush(); 
 		ModelAndView mav = new ModelAndView();
