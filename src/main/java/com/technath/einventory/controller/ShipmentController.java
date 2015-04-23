@@ -89,9 +89,9 @@ public class ShipmentController {
 		List<InvoiceItemDO> resultList;
 		entityManager.setFlushMode(FlushModeType.COMMIT);
 		System.out.println("invoiceId::" + shipmentCheckin.getInvoiceId());
-		for (String itemId :shipmentCheckin.getSelectedItems()){
-			System.out.println("itemId::" + itemId);
-			query = entityManager.createQuery("select c from InvoiceItemDO c where invoiceid="+shipmentCheckin.getInvoiceId() +" and itemCode='"+itemId+"'" );
+		for (int invoiceItemId :shipmentCheckin.getSelectedItems()){
+			System.out.println("itemId::" + invoiceItemId);
+			query = entityManager.createQuery("select c from InvoiceItemDO c where invoiceitemid="+invoiceItemId );
 			resultList = query.getResultList();
 			
 			if(resultList!=null){

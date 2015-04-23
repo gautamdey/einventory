@@ -28,7 +28,7 @@
 		<div class="bs-example">Items :</div>
 		<div class="bs-example">
 			<form:checkboxes items="${itemlists}" path="selectedItems"
-				itemLabel="itemName" itemValue="itemCode" delimiter=" <br/>" />
+				itemLabel="itemName" itemValue="invoiceItemId" delimiter=" <br/>" />
 			<form:hidden path="invoiceId" value="${invoiceId}" />
 
 		</div>

@@ -62,9 +62,9 @@
 		<div class="control-group info">
 			<table>
 				<tr>
-					<td><select class="form-control" id="invoiceId">
+					<td><select class="form-control" id="invoiceItemId">
 							<c:forEach var="invoice" items="${invoices}">
-								<option value=${invoice.invoiceId}>${invoice.invoiceNum}</option>
+								<option value=${invoice.invoiceItemId}>${invoice.invoiceNum}</option>
 							</c:forEach>
 					</select></td>
 

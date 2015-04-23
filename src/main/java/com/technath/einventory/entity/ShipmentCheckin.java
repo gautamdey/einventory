@@ -4,17 +4,17 @@ package com.technath.einventory.entity;
 public class ShipmentCheckin {
 
 	private int invoiceId;
-	private String[] selectedItems ;
+	private int[] selectedItems ;
 	public int getInvoiceId() {
 		return invoiceId;
 	}
 	public void setInvoiceId(int invoiceId) {
 		this.invoiceId = invoiceId;
 	}
-	public String[] getSelectedItems() {
+	public int[] getSelectedItems() {
 		return selectedItems;
 	}
-	public void setSelectedItems(String[] selectedItems) {
+	public void setSelectedItems(int[] selectedItems) {
 		this.selectedItems = selectedItems;
 	}
 

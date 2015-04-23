@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -18,7 +20,15 @@ public class InvoiceItemDO {
 		discount= new BigDecimal(0.0);
 	}
 	
+	
+	
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "invoiceitemid")
+	private String invoiceItemId;
+	
+	
+
 	@Column(name = "itemcode")
 	private String itemCode;
 	
@@ -199,6 +209,14 @@ public class InvoiceItemDO {
 
 	public void setReceived(String received) {
 		this.received = received;
+	}
+
+	public String getInvoiceItemId() {
+		return invoiceItemId;
+	}
+
+	public void setInvoiceItemId(String invoiceItemId) {
+		this.invoiceItemId = invoiceItemId;
 	}
 	
 }
