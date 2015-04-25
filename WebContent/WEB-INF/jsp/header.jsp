@@ -27,13 +27,15 @@
 				<li><a href="/einventory-web/listsupplier.html">Supplier</a></li>
 				<li><a href="/einventory-web/listcatalog.html">Catalog</a></li>
 				<li><a href="/einventory-web/getInvoiceItem.html">Test</a></li>
-
-				
+				<li><a
+					href="/einventory-web/customer/listcustomer.html">Customers</a></li>
 				<li class="dropdown"><a data-toggle="dropdown"
 					class="dropdown-toggle" href="#">Stock <b class="caret"></b></a>
 					<ul role="menu" class="dropdown-menu">
 						<li><a href="#">View Item Stock</a></li>
-						<li><a href="/einventory-web/shipment/checkinshipmentstart.html">Receive Shipment</a></li>
+						<li><a
+							href="/einventory-web/shipment/checkinshipmentstart.html">Receive
+								Shipment</a></li>
 					</ul></li>
 			</ul>
 			<form role="search" class="navbar-form navbar-left">
