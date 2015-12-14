@@ -30,8 +30,8 @@
          -->
 
  <Resource name="jdbc/razzeldazzel"  auth="Container" type="javax.sql.DataSource"
-         username="namrata"
-         password="namrata"
+         username="root"
+         password=""
          driverClassName="org.mariadb.jdbc.Driver"
          url="jdbc:mariadb://localhost:3306/razzeldazzel?useUnicode=true&amp;characterEncoding=utf8"
          maxActive="15"

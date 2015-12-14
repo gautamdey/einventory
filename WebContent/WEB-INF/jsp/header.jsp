@@ -27,6 +27,7 @@
 				<li><a href="/einventory-web/listsupplier.html">Supplier</a></li>
 				<li><a href="/einventory-web/listcatalog.html">Catalog</a></li>
 				<li><a href="/einventory-web/getInvoiceItem.html">Test</a></li>
+				<li><a href="/einventory-web/listpo.html">Purchase Order</a></li>
 				<li><a
 					href="/einventory-web/customer/listcustomer.html">Customers</a></li>
 				<li class="dropdown"><a data-toggle="dropdown"
