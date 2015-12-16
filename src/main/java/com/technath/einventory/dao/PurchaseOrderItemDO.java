@@ -77,6 +77,54 @@ public class PurchaseOrderItemDO {
 
 
 
+	public int getItemId() {
+		return itemId;
+	}
+
+	public void setItemId(int itemId) {
+		this.itemId = itemId;
+	}
+
+	public String getItemCode() {
+		return itemCode;
+	}
+
+	public void setItemCode(String itemCode) {
+		this.itemCode = itemCode;
+	}
+
+	public BigDecimal getUnitCost() {
+		return unitCost;
+	}
+
+	public void setUnitCost(BigDecimal unitCost) {
+		this.unitCost = unitCost;
+	}
+
+	public BigDecimal getStitchingCost() {
+		return stitchingCost;
+	}
+
+	public void setStitchingCost(BigDecimal stitchingCost) {
+		this.stitchingCost = stitchingCost;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public PurchaseOrderDO getPo() {
+		return po;
+	}
+
+	public void setPo(PurchaseOrderDO po) {
+		this.po = po;
+	}
+
 	public String getItemName() {
 		return itemName;
 	}
