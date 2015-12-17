@@ -37,8 +37,8 @@
 					<td>Code</td>
 					<td>Name</td>
 					<td>Desc</td>
-					<td>catagoryId</td>
-					<td>catlogId</td>
+					<td>category</td>
+					<td>catalog</td>
 					<td>unitCost</td>
 					<td>stitchingCost</td>
 					<td>costPrice</td>
@@ -56,14 +56,14 @@
 						<td>${poitem.itemCode}</td>
 						<td>${poitem.itemName}</td>
 						<td>${poitem.itemDesc}</td>
-						<td>${poitem.catagoryId}</td>
-						<td>${poitem.catlogId}</td>
+						<td>${poitem.catagory.catagoryName}</td>
+						<td>${poitem.catalogId}</td>
 						<td>${poitem.unitCost}</td>
 						<td>${poitem.stitchingCost}</td>
 						<td>${poitem.costPrice}</td>
 						<td>${poitem.quantity}</td>
 						<td>${poitem.discount}</td>
-						<td>${poitem.netCost}</td>
+						<td>${poitem.netCostPrice}</td>
 						<td>${poitem.embroidery}</td>
 						<td>${poitem.stitchingDetail}</td>
 					</tr>

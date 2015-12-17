@@ -24,7 +24,7 @@
 	</div>
 	<div class="bs-example">
 	<div class="bs-example">
-	 Item created !
+	 Item created 
 	</div>
 		Item created
 		<div>

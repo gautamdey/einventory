@@ -9,11 +9,13 @@ import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,7 +51,7 @@ public class PurchaseOrderController {
 	@RequestMapping(value = "/addpo", method = RequestMethod.GET)
 	@Transactional
 	public ModelAndView newPoGet(Model model) {
-		
+
 		Query query = entityManager.createQuery("select c from SupplierDO c" );
 		List<SupplierDO> resultSupplier = query.getResultList();
 		Map< Integer, String > suppliers = new HashMap<Integer,String>();
@@ -65,67 +67,69 @@ public class PurchaseOrderController {
 	@RequestMapping(value = "/addpo", method = RequestMethod.POST)
 	@Transactional
 	public ModelAndView newPoPost(@ModelAttribute("SpringWeb")PurchaseOrderDO purchaseOrder, 
-			   ModelMap model) {
+			ModelMap model) {
 		entityManager.persist(purchaseOrder);
 		entityManager.flush(); 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("resultaddpo");
 		return mav;
 	}
-	
-	
+
 	@RequestMapping(value = "/addpoitem", method = RequestMethod.GET)
 	@Transactional
 	public String newPurchaseOrderItemGet(@RequestParam("poid")int poId,Model model) throws Exception {
-		
+
 		PurchaseOrderDO po = new PurchaseOrderDO(); 
 		po.setPoId(poId);
-		
+
 
 		PurchaseOrderItemDO emptyItem = new PurchaseOrderItemDO();
 		emptyItem.setPo(po);
-		
-		 Query query = entityManager.createQuery("select c from CatagoryDO c" );
+		emptyItem.setUnitCost(new BigDecimal(0));
+
+		Query query = entityManager.createQuery("select c from CatagoryDO c" );
 		List<CatagoryDO> resultList = query.getResultList();
 		Map< Integer, String > categories = new HashMap<Integer,String>();
 		for(CatagoryDO category : resultList){
 			categories.put(new Integer(category.getCatagoryId()), category.getCatagoryName());
 		}
-		
-		query = entityManager.createQuery("select c from CatalogDO c " );
-		List<CatalogDO> resultListCatalog = query.getResultList();
-		Map< Integer, String > catalogs = new HashMap<Integer,String>();
-		for(CatalogDO catelog : resultListCatalog){
-			catalogs.put(new Integer(catelog.getCatalogId()), catelog.getCatalogName());
-		}
-		
-			
-		model.addAttribute("command",emptyItem);
-		model.addAttribute("command",emptyItem);
+
+
+		model.addAttribute("poItem",emptyItem);
 		model.addAttribute("categories",categories);
-		model.addAttribute("catalogs",catalogs);
-	
-		
-//		return new ModelAndView("addinvoiceitem", "command", emptyItem);
+
+
+		//		return new ModelAndView("addinvoiceitem", "command", emptyItem);
 		return "addpoitem";
 	}
 
 	@RequestMapping(value = "/addpoitem", method = RequestMethod.POST)
 	@Transactional
-	public ModelAndView newPurchaseOrderItemGet(@ModelAttribute("SpringWeb")PurchaseOrderItemDO item, 
-			   ModelMap model) {
-		BigDecimal totalCost = item.getCostPrice().add(item.getStitchingCost());
-		BigDecimal discount = totalCost.multiply(item.getDiscount()).divide(new BigDecimal(100));
-		
-		BigDecimal netCost = totalCost.subtract(discount);
-		item.setNetCostPrice(netCost);
-		entityManager.persist(item);
-		entityManager.flush(); 
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("resultaddpoitem");
-		mav.addObject("poId",item.getPo().getPoId());
-		return mav;
+	public String newPurchaseOrderItemPost(@ModelAttribute("poItem") @Valid PurchaseOrderItemDO poItem, 
+			BindingResult result,Model model) {
+		if (result.hasErrors()) {
+			System.out.println(result.getAllErrors().size());
+//			model.addAttribute("poItem",item);
+			Query query = entityManager.createQuery("select c from CatagoryDO c" );
+			List<CatagoryDO> resultList = query.getResultList();
+			Map< Integer, String > categories = new HashMap<Integer,String>();
+			for(CatagoryDO category : resultList){
+				categories.put(new Integer(category.getCatagoryId()), category.getCatagoryName());
+			}
+			model.addAttribute("categories",categories);
+			
+			return "addpoitem";
+		} else{
+			entityManager.persist(poItem);
+			entityManager.flush(); 
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("resultaddpoitem");
+			mav.addObject("poId",poItem.getPo().getPoId());
+			return "resultaddpoitem";
+		}
 	}
+
+
 	@RequestMapping("/viewpodetail")
 	public String purchaseOrderDetail(@RequestParam("poid")int poId,Model model) {
 
