@@ -13,7 +13,7 @@
 }
 </style>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<title>result add invoice</title>
+<title>result add po item</title>
 
 </head>
 <body>
@@ -23,18 +23,18 @@
 		<%@ include file="/WEB-INF/jsp/header.jsp"%>
 	</div>
 	<div class="bs-example">
-		Purchase Order ${poId} Created
+	<div class="bs-example">
+	 Item created 
+	</div>
+		Item created
 		<div>
-			<a href="/einventory-web/purchaseorder/addpo.html">add more purchase order </a>
+			<a href="addpo.html">add more invoice </a>
 		</div>
 		<div>
-			<a href="/einventory-web/purchaseorder/addpoitem.html?poid=${poId}">Add item to
-				Purchase Order</a>
-				
+			<a href="/einventory-web/po/addpoitem.html?poid=${poId}">Add more item to
+				Purchase Order</a>				
 				 <c:out value="${poId}"/>
 		</div>
-<div><c:out value="${poId}"/>
-	</div>
 	</div>
 	<div>Footer</div>
 </body>

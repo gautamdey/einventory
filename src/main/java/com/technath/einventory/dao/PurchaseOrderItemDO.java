@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "tbl_poitems")
@@ -29,18 +32,23 @@ public class PurchaseOrderItemDO {
 	@Id
 	@Column(name = "itemId")
 	private int itemId;
-
+	@NotEmpty
+	@Size(min = 1, max = 50)
 	@Column(name = "itemcode")
 	private String itemCode;
-
+	@NotEmpty
+	@Size(min = 1, max = 50)
 	@Column(name = "itemname")
 	private String itemName;
 
 	@Column(name = "itemdesc")
+	@Size(min = 0, max = 100)
 	private String itemDesc;
 
-	@Column(name = "catagoryid")
-	private String catagoryId;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="catagoryId")
+	private CatagoryDO catagory;
+	
 
 	@Column(name = "catalogid")
 	private String catalogId;
@@ -63,7 +71,8 @@ public class PurchaseOrderItemDO {
 
 	@Column(name = "embroidery")
 	private String embroidery ;
-
+	
+	@Size(min = 0, max = 100)
 	@Column(name = "stitchingdetail")
 	private String stitchingDetail ;
 
@@ -76,6 +85,54 @@ public class PurchaseOrderItemDO {
 
 
 
+
+	public int getItemId() {
+		return itemId;
+	}
+
+	public void setItemId(int itemId) {
+		this.itemId = itemId;
+	}
+
+	public String getItemCode() {
+		return itemCode;
+	}
+
+	public void setItemCode(String itemCode) {
+		this.itemCode = itemCode;
+	}
+
+	public BigDecimal getUnitCost() {
+		return unitCost;
+	}
+
+	public void setUnitCost(BigDecimal unitCost) {
+		this.unitCost = unitCost;
+	}
+
+	public BigDecimal getStitchingCost() {
+		return stitchingCost;
+	}
+
+	public void setStitchingCost(BigDecimal stitchingCost) {
+		this.stitchingCost = stitchingCost;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public PurchaseOrderDO getPo() {
+		return po;
+	}
+
+	public void setPo(PurchaseOrderDO po) {
+		this.po = po;
+	}
 
 	public String getItemName() {
 		return itemName;
@@ -93,12 +150,14 @@ public class PurchaseOrderItemDO {
 		this.itemDesc = itemDesc;
 	}
 
-	public String getCatagoryId() {
-		return catagoryId;
+
+
+	public CatagoryDO getCatagory() {
+		return catagory;
 	}
 
-	public void setCatagoryId(String catagoryId) {
-		this.catagoryId = catagoryId;
+	public void setCatagory(CatagoryDO catagory) {
+		this.catagory = catagory;
 	}
 
 	public String getCatalogId() {

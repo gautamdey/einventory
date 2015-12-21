@@ -35,6 +35,8 @@
 					<td>Shipping</td>
 					<td>Total Item</td>
 					<td>Net Amount</td>
+					<td>#</td>
+					<td>#</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -47,6 +49,13 @@
 						<td>${po.shippingCost}</td>
 						<td>${po.itemCount}</td>
 						<td>${po.netAmount}</td>
+					<td>
+						<a class="btn btn-large btn-info" href="/einventory-web/purchaseorder/editpodetail.html?poid=${po.poId}">View/Edit Purchase Order</a>
+						</td>
+						<td>
+						<a class="btn btn-large btn-info" href="/einventory-web/purchaseorder/viewpodetail.html?poid=${po.poId}">View Items</a>
+						</td>
+			
 					</tr>
 				</c:forEach>
 			</tbody>
