@@ -34,24 +34,24 @@ $(document).ready(function()
 		    {
 		        var unitPrice = parseFloat($("#unitCost").val());
 		        var quantity = parseFloat($("#quantity").val());
-		        var stitchingCost = parseFloat($("#stitchingCost").val())
-		        var tempCost  = (unitPrice * quantity)+ stitchingCost;
-		        var discount = parseFloat($("#discount").val())
-		        var discountAmt = tempCost * (discount/100);
-		        var discount = parseFloat($("#discount").val())
-		        var discountAmt = tempCost * (discount/100);
-		        var netAmt = tempCost-discountAmt 
+		        var stitchingCost = parseFloat($("#stitchingCost").val());
+		        var discount = parseFloat($("#discount").val());
+		        
+		        var tempCost  = (unitPrice * quantity) + stitchingCost;
+		        
+		        var discountAmt = (tempCost-stitchingCost) * (discount/100);
+		        
+		        var netAmt = tempCost-discountAmt  
 		        var totalCost = tempCost.toFixed(2);
 		        var netCost = netAmt.toFixed(2); 
 		        $("#costPrice").val(totalCost);
 		        $("#netCostPrice").val(netCost);
 		        
-		        //var total = total.toFixed(2);
-		        //$("#total_price_amount").val(total);
 		    }
 		    $(document).on("change, keyup", "#unitCost", updatePrice);
 		    $(document).on("change, keyup", "#stitchingCost", updatePrice);
 		    $(document).on("change, keyup", "#quantity", updatePrice);
+		    $(document).on("change, keyup", "#discount", updatePrice);
 		});
 </script>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
