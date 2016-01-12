@@ -11,12 +11,14 @@ import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.validation.Valid;
 
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -62,24 +64,27 @@ public class CustomerController {
 		if(resultCustomerList!=null||resultCustomerList.isEmpty()==false){
 			System.out.println("found customer");
 			customer= resultCustomerList.get(0);
-
 		}		
 		else{
 			System.out.println("invalid custid::" + custId);
 		}
-		model.addAttribute("command",customer);
+		model.addAttribute("customer",customer);
 		return "updatecustomer";
 	}
 
 	@RequestMapping(value = "/updatecustomer", method = RequestMethod.POST)
 	@Transactional
-	public ModelAndView updateCustomerePost(@ModelAttribute("SpringWeb")CustomerDO customer, 
-			   ModelMap model) {
-		entityManager.persist(customer);
-		entityManager.flush(); 
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("resultupdatecustomer");
-		return mav;
+	public String updateCustomerePost(@ModelAttribute("customer") @Valid CustomerDO customer, 
+			BindingResult result,ModelMap model) {
+		
+		if(result.hasErrors()) {
+			model.addAttribute("customer", customer);
+			return "updatecustomer";
+		} else {
+			entityManager.merge(customer);
+			entityManager.flush(); 
+			return "resultupdatecustomer";
+		}
 	}
 	
 
@@ -89,7 +94,7 @@ public class CustomerController {
 	@Transactional
 	public String newCustomerGet( Model model) {
 		CustomerDO customer = new CustomerDO();
-		model.addAttribute("command",customer);
+		model.addAttribute("customer",customer);
 		return "addcustomer";
 	}
 
@@ -97,13 +102,18 @@ public class CustomerController {
 
 	@RequestMapping(value = "/addcustomer", method = RequestMethod.POST)
 	@Transactional
-	public ModelAndView newInvoiceItemPost(@ModelAttribute("SpringWeb")CustomerDO customer, 
-			   ModelMap model) {
+	public String newInvoiceItemPost(@ModelAttribute("customer") @Valid CustomerDO customer, 
+			BindingResult result, ModelMap model) {
+
+		if(result.hasErrors()) {
+			model.addAttribute("customer",customer);
+			return "addcustomer";
+			
+		} else {
 		entityManager.persist(customer);
 		entityManager.flush(); 
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("resultaddcustomer");
-		return mav;
+		return "resultaddcustomer";
+		}
 	}
 	
 	@InitBinder
