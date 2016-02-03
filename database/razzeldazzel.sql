@@ -1,8 +1,8 @@
--- MySQL dump 10.16  Distrib 10.1.8-MariaDB, for osx10.10 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.9, for osx10.9 (x86_64)
 --
--- Host: localhost    Database: razzeldazzel
+-- Host: 127.0.0.1    Database: razzeldazzel
 -- ------------------------------------------------------
--- Server version	10.1.8-MariaDB
+-- Server version	5.5.5-10.1.9-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -14,173 +14,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `Employee`
---
-
-DROP TABLE IF EXISTS `Employee`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Employee` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(20) DEFAULT NULL,
-  `role` varchar(20) DEFAULT NULL,
-  `insert_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Employee`
---
-
-LOCK TABLES `Employee` WRITE;
-/*!40000 ALTER TABLE `Employee` DISABLE KEYS */;
-INSERT INTO `Employee` VALUES (1,'Pankaj','CEO','2015-11-17 15:37:02'),(19,'Pankaj','CEO','2015-11-17 15:44:47');
-/*!40000 ALTER TABLE `Employee` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `category`
---
-
-DROP TABLE IF EXISTS `category`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `category` (
-  `CATEGORY_ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `NAME` varchar(10) NOT NULL,
-  `DESC` varchar(255) NOT NULL,
-  PRIMARY KEY (`CATEGORY_ID`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `category`
---
-
-LOCK TABLES `category` WRITE;
-/*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (5,'CONSUMER','CONSUMER COMPANY'),(6,'INVESTMENT','INVESTMENT COMPANY'),(9,'CONSUMER','CONSUMER COMPANY');
-/*!40000 ALTER TABLE `category` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `stock`
---
-
-DROP TABLE IF EXISTS `stock`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `stock` (
-  `STOCK_ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `STOCK_CODE` varchar(10) NOT NULL,
-  `STOCK_NAME` varchar(20) NOT NULL,
-  PRIMARY KEY (`STOCK_ID`) USING BTREE,
-  UNIQUE KEY `UNI_STOCK_NAME` (`STOCK_NAME`),
-  UNIQUE KEY `UNI_STOCK_ID` (`STOCK_CODE`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `stock`
---
-
-LOCK TABLES `stock` WRITE;
-/*!40000 ALTER TABLE `stock` DISABLE KEYS */;
-INSERT INTO `stock` VALUES (1,'4715','GENM'),(3,'47151','GENM1'),(5,'7052','PADINI'),(9,'7053','PADINIW'),(12,'7054','PADINIQ'),(15,'7055','PADINII');
-/*!40000 ALTER TABLE `stock` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `stock_category`
---
-
-DROP TABLE IF EXISTS `stock_category`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `stock_category` (
-  `STOCK_ID` int(10) unsigned NOT NULL,
-  `CATEGORY_ID` int(10) unsigned NOT NULL,
-  `CREATED_DATE` date NOT NULL,
-  `CREATED_BY` varchar(10) NOT NULL,
-  PRIMARY KEY (`STOCK_ID`,`CATEGORY_ID`),
-  KEY `FK_CATEGORY_ID_NEW` (`CATEGORY_ID`),
-  CONSTRAINT `FK_CATEGORY_ID_NEW` FOREIGN KEY (`CATEGORY_ID`) REFERENCES `category` (`CATEGORY_ID`),
-  CONSTRAINT `FK_STOCK_ID_NEW` FOREIGN KEY (`STOCK_ID`) REFERENCES `stock` (`STOCK_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `stock_category`
---
-
-LOCK TABLES `stock_category` WRITE;
-/*!40000 ALTER TABLE `stock_category` DISABLE KEYS */;
-INSERT INTO `stock_category` VALUES (15,9,'2015-11-19','system');
-/*!40000 ALTER TABLE `stock_category` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `stock_daily_record`
---
-
-DROP TABLE IF EXISTS `stock_daily_record`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `stock_daily_record` (
-  `RECORD_ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `PRICE_OPEN` float(6,2) DEFAULT NULL,
-  `PRICE_CLOSE` float(6,2) DEFAULT NULL,
-  `PRICE_CHANGE` float(6,2) DEFAULT NULL,
-  `VOLUME` bigint(20) unsigned DEFAULT NULL,
-  `DATE` date NOT NULL,
-  `STOCK_ID` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`RECORD_ID`) USING BTREE,
-  UNIQUE KEY `UNI_STOCK_DAILY_DATE` (`DATE`),
-  KEY `FK_STOCK_TRANSACTION_STOCK_ID` (`STOCK_ID`),
-  CONSTRAINT `FK_STOCK_TRANSACTION_STOCK_ID` FOREIGN KEY (`STOCK_ID`) REFERENCES `stock` (`STOCK_ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `stock_daily_record`
---
-
-LOCK TABLES `stock_daily_record` WRITE;
-/*!40000 ALTER TABLE `stock_daily_record` DISABLE KEYS */;
-INSERT INTO `stock_daily_record` VALUES (36,1.20,1.10,10.00,3000000,'2015-11-18',9);
-/*!40000 ALTER TABLE `stock_daily_record` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `stock_detail`
---
-
-DROP TABLE IF EXISTS `stock_detail`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `stock_detail` (
-  `STOCK_ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `COMP_NAME` varchar(100) NOT NULL,
-  `COMP_DESC` varchar(255) NOT NULL,
-  `REMARK` varchar(255) NOT NULL,
-  `LISTED_DATE` date NOT NULL,
-  PRIMARY KEY (`STOCK_ID`) USING BTREE,
-  CONSTRAINT `FK_STOCK_ID` FOREIGN KEY (`STOCK_ID`) REFERENCES `stock` (`STOCK_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `stock_detail`
---
-
-LOCK TABLES `stock_detail` WRITE;
-/*!40000 ALTER TABLE `stock_detail` DISABLE KEYS */;
-INSERT INTO `stock_detail` VALUES (5,'PADINI Holding Malaysia','one stop shopping','vinci vinci','2015-11-18');
-/*!40000 ALTER TABLE `stock_detail` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `tbl_catagory`
@@ -422,9 +255,10 @@ CREATE TABLE `tbl_poitems` (
   `stitchingdetail` varchar(200) DEFAULT NULL,
   `discount` decimal(4,2) unsigned zerofill DEFAULT '00.00',
   `netcostprice` decimal(11,2) unsigned zerofill DEFAULT '000000000.00',
+  `received` varchar(1) NOT NULL DEFAULT 'N',
   PRIMARY KEY (`itemid`),
   UNIQUE KEY `itemcode_UNIQUE` (`itemcode`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -433,6 +267,7 @@ CREATE TABLE `tbl_poitems` (
 
 LOCK TABLES `tbl_poitems` WRITE;
 /*!40000 ALTER TABLE `tbl_poitems` DISABLE KEYS */;
+INSERT INTO `tbl_poitems` VALUES (1,'001','abc','abc','1','abc',000000100.00,000000010.00,00000000001,000000110.00,'1','abc','asb',02.00,000000108.00,'N');
 /*!40000 ALTER TABLE `tbl_poitems` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -536,29 +371,6 @@ LOCK TABLES `tbl_supplier` WRITE;
 INSERT INTO `tbl_supplier` VALUES (1,'abc','abcdmdkek','anacdefk','ajsdasd','aslasfja','lsfafljas','abc@gmail.com','abc','100289','10029746'),(2,'Test1','12345','abcdefg','134','abc','abc','test1@gmail.com','Test1','1200','1200');
 /*!40000 ALTER TABLE `tbl_supplier` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `test`
---
-
-DROP TABLE IF EXISTS `test`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `test` (
-  `idtest` int(11) NOT NULL,
-  `testcol` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idtest`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `test`
---
-
-LOCK TABLES `test` WRITE;
-/*!40000 ALTER TABLE `test` DISABLE KEYS */;
-/*!40000 ALTER TABLE `test` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -569,4 +381,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-12-15 16:23:07
+-- Dump completed on 2016-02-03  8:30:26

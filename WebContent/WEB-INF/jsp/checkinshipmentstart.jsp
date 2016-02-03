@@ -16,9 +16,9 @@
 <script type="text/javascript">
 function callcheckin()
 {
-		var invoiceId = $('#invoiceId').val();
+		var poId = $('#poId').val();
 		console.log(invoiceId);
-		window.location="/einventory-web/shipment/checkinshipment.html?invoiceId="+invoiceId;
+		window.location="/einventory-web/shipment/checkinshipment.html?poId="+poId;
 	} 
 
 	</script>
@@ -40,14 +40,12 @@ function callcheckin()
 		<div class="control-group info">
 			<table>
 				<tr>
-					<td><select class="form-control" id="invoiceId">
-							<c:forEach var="invoice" items="${invoices}">
-								<option value="${invoice.invoiceId}">${invoice.invoiceNum}</option>
+					<td><select class="form-control" id="poId">
+							<c:forEach var="po" items="${pos}">
+								<option value="${po.poId}">${po.poNum}</option>
 							</c:forEach>
 					</select></td>
-					<td><input type="button" onclick="callcheckin();"  value ="Select Invoice" class="btn btn-primary"></td>
-
-					
+					<td><input type="button" onclick="callcheckin();"  value ="Select Purchase Order" class="btn btn-primary"></td>
 				</tr>
 			</table>
 		</div>

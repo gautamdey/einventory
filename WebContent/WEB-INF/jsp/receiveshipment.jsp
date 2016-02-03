@@ -63,8 +63,8 @@
 			<table>
 				<tr>
 					<td><select class="form-control" id="invoiceItemId">
-							<c:forEach var="invoice" items="${invoices}">
-								<option value=${invoice.invoiceItemId}>${invoice.invoiceNum}</option>
+							<c:forEach var="po" items="${pos}">
+								<option value=${po.poid}>${po.ponum}</option>
 							</c:forEach>
 					</select></td>
 
