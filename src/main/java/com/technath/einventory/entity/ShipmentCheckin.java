@@ -3,13 +3,14 @@ package com.technath.einventory.entity;
 
 public class ShipmentCheckin {
 
-	private int invoiceId;
+	private int poId;
 	private int[] selectedItems ;
-	public int getInvoiceId() {
-		return invoiceId;
+
+	public int getPoId() {
+		return poId;
 	}
-	public void setInvoiceId(int invoiceId) {
-		this.invoiceId = invoiceId;
+	public void setPoId(int poId) {
+		this.poId = poId;
 	}
 	public int[] getSelectedItems() {
 		return selectedItems;

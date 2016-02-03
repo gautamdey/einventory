@@ -26,6 +26,8 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.technath.einventory.config.ConstParams;
 import com.technath.einventory.dao.InvoiceDO;
 import com.technath.einventory.dao.InvoiceItemDO;
+import com.technath.einventory.dao.PurchaseOrderDO;
+import com.technath.einventory.dao.PurchaseOrderItemDO;
 import com.technath.einventory.dao.StockItemDO;
 import com.technath.einventory.entity.ShipmentCheckin;
 
@@ -35,16 +37,14 @@ public class ShipmentController {
 	@PersistenceContext
 	protected EntityManager entityManager;
 
-	@RequestMapping(value = "/receiveshipment", method = RequestMethod.GET)
-	@Transactional
-	public String receiveShipmentGet(Model model) {
-		Query query = entityManager.createQuery("select c from InvoiceDO c" );
-		List<InvoiceDO> resultList = query.getResultList();
-
-		model.addAttribute("invoices",resultList);
-
-		return "receiveshipment";
-	}
+//	@RequestMapping(value = "/receiveshipment", method = RequestMethod.GET)
+//	@Transactional
+//	public String receiveShipmentGet(Model model) {
+//		Query query = entityManager.createQuery("select c from PurchaseDO c" );
+//		List<PurchaseOrderDO> resultList = query.getResultList();
+//		model.addAttribute("pos",resultList);
+//		return "receiveshipment";
+//	}
 
 //	@RequestMapping(value="/getInvoiceItem",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 //	@ResponseBody
@@ -61,23 +61,23 @@ public class ShipmentController {
 	@RequestMapping(value = "/checkinshipmentstart", method = RequestMethod.GET)
 	@Transactional
 	public String checkinShipmentStartGet(Model model) {
-		Query query = entityManager.createQuery("select c from InvoiceDO c" );
-		List<InvoiceDO> resultList = query.getResultList();
-		model.addAttribute("invoices",resultList);
+		Query query = entityManager.createQuery("select c from PurchaseOrderDO c" );
+		List<PurchaseOrderDO> resultList = query.getResultList();
+		model.addAttribute("pos",resultList);
 		return "checkinshipmentstart";
 	}
 	
 	@RequestMapping(value = "/checkinshipment", method = RequestMethod.GET)
 	@Transactional
-	public String checkinShipmentGet(@RequestParam("invoiceId")int invoiceId,Model model) {
-		Query query = entityManager.createQuery("select c from InvoiceItemDO c where invoiceid="+invoiceId +" and received='N'");
+	public String checkinShipmentGet(@RequestParam("poId")int poId,Model model) {
+		Query query = entityManager.createQuery("select c from PurchaseOrderItemDO c where poid="+poId +" and received='N'");
 		System.out.println("inside checkinShipmentGet");
-		List<InvoiceItemDO> resultList = query.getResultList();
+		List<PurchaseOrderItemDO> resultList = query.getResultList();
 		ShipmentCheckin checkinForm = new ShipmentCheckin();
-		checkinForm.setInvoiceId(invoiceId);
+		checkinForm.setPoId(poId);
 		model.addAttribute("command",new ShipmentCheckin());
 		model.addAttribute("itemlists",resultList);
-		model.addAttribute("invoiceId",invoiceId);
+		model.addAttribute("poId",poId);
 		return "checkinshipment";
 	}
 	
@@ -88,10 +88,10 @@ public class ShipmentController {
 		Query query;
 		List<InvoiceItemDO> resultList;
 		entityManager.setFlushMode(FlushModeType.COMMIT);
-		System.out.println("invoiceId::" + shipmentCheckin.getInvoiceId());
-		for (int invoiceItemId :shipmentCheckin.getSelectedItems()){
-			System.out.println("itemId::" + invoiceItemId);
-			query = entityManager.createQuery("select c from InvoiceItemDO c where invoiceitemid="+invoiceItemId );
+		System.out.println("poId::" + shipmentCheckin.getPoId());
+		for (int poItemId :shipmentCheckin.getSelectedItems()){
+			System.out.println("itemId::" + poItemId);
+			query = entityManager.createQuery("select c from PurchaseOrderItemDO c where po="+poItemId );
 			resultList = query.getResultList();
 			
 			if(resultList!=null){

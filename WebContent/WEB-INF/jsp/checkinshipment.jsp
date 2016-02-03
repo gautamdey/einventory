@@ -28,8 +28,8 @@
 		<div class="bs-example">Items :</div>
 		<div class="bs-example">
 			<form:checkboxes items="${itemlists}" path="selectedItems"
-				itemLabel="itemName" itemValue="invoiceItemId" delimiter=" <br/>" />
-			<form:hidden path="invoiceId" value="${invoiceId}" />
+				itemLabel="itemName" itemValue="poItemId" delimiter=" <br/>" />
+			<form:hidden path="poId" value="${poId}" />
 
 		</div>
 		<div class="bs-example">
