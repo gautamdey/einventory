@@ -8,6 +8,7 @@ public class ShipmentCheckin {
 
 	private int poId;
 	private List<PurchaseOrderItemDO> selectedItems ;
+
 	public int getPoId() {
 		return poId;
 	}
