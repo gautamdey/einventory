@@ -20,7 +20,7 @@
 		</div>
 		<!-- Collection of nav links, forms, and other content for toggling -->
 		<div id="navbarCollapse" class="collapse navbar-collapse">
-			<ul class="nav navbar-nav">
+			<ul class="list-group nav navbar-nav">
 				<li class="list-group-item"><a href="/einventory-web/welcome.html">Home</a></li>
 				<li class="list-group-item"><a href="/einventory-web/listcatagory.html">Category</a></li>
 				<li class="list-group-item"><a href="/einventory-web/invoice/listinvoice.html">Invoice</a></li>
@@ -30,7 +30,7 @@
 				<li class="list-group-item"><a href="/einventory-web/purchaseorder/listpo.html">Purchase Order</a></li>
 				<li class="list-group-item"><a
 					href="/einventory-web/customer/listcustomer.html">Customers</a></li>
-				<li class="class="list-group-item dropdown"><a data-toggle="dropdown"
+				<li class="list-group-item dropdown"><a data-toggle="dropdown"
 					class="dropdown-toggle" href="#">Stock <b class="caret"></b></a>
 					<ul role="menu" class="dropdown-menu">
 						<li><a href="#">View Item Stock</a></li>
@@ -51,10 +51,9 @@
 	</nav>
 </div>
 <script type="text/javascript">
-  $('.list-group-item').on('click',function(e){
-    //var previous = $(this).closest(".nav").children(".active");
-    //previous.removeClass('active'); // previous list-item
-    $(e.target).addClass('active'); // activated list-item
-  });
+$("ul li").click(function() {
+    $(this).parent().children().removeClass("active");
+    $(this).addClass("active");
+});
 
 </script>
