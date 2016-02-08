@@ -83,6 +83,8 @@ public class PurchaseOrderItemDO {
 	@Column(name = "netcostprice")
 	private BigDecimal netCostPrice ;
 
+	@Column(name = "received")
+	private String received ;
 
 
 
@@ -219,6 +221,14 @@ public class PurchaseOrderItemDO {
 	//	public void setPo(PurchaseOrderDO po) {
 	//		this.po = po;
 	//	}
+
+	public String getReceived() {
+		return received;
+	}
+
+	public void setReceived(String received) {
+		this.received = received;
+	}
 
 
 

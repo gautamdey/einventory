@@ -24,33 +24,34 @@
 	<div>
 		<%@ include file="/WEB-INF/jsp/header.jsp"%>
 	</div>
-	<form:form method="POST" action="/einventory-web/shipment/checkinshipment.html" modelAttribute="command">
+	<form:form method="POST"
+		action="/einventory-web/shipment/receiveshipment"
+		modelAttribute="command">
 		<div class="bs-example">Items :</div>
 		<div class="bs-example">
-		
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<td> #</td>
-					<td>Item</td>
-					<td>Quantity Order</td>
-				</tr>
-			</thead>
-					<tbody>
-				<c:forEach var="item" items="${itemlists}">
+
+			<table class="table table-striped">
+				<thead>
 					<tr>
-						<td><input type="checkbox" name="selectedItems" value="${item.itemCode}"/></td>
-						<td>${item.itemName}</td>
-						<td>${item.quantity}</td>
+						<td>#</td>
+						<td>Item</td>
+						<td>Quantity Order</td>
 					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		
-		
-	<%-- 		<form:checkboxes items="${itemlists}" path="selectedItems"
-				itemLabel="itemName" itemValue="itemId" delimiter=" <br/>" />
-			<form:hidden path="poId" value="${poId}" /> --%>
+				</thead>
+				<tbody>
+					<c:forEach var="item" items="${itemlists}">
+						<tr>
+							<td><input type="checkbox" name="selectedItems"
+								value="${item.itemCode}" /></td>
+							<td>${item.itemName}</td>
+							<td>${item.quantity}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+
+
+			<form:hidden path="poId" value="${poId}" />
 
 		</div>
 		<div class="bs-example">

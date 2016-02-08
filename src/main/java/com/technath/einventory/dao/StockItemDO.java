@@ -24,19 +24,14 @@ public class StockItemDO {
 		totalCost = new BigDecimal(0.0);
 		
 	}
-	public StockItemDO(InvoiceItemDO item){
-		this.additionalCost=item.getAdditionalCost().divide(ConstParams.DOLLAR_CONVERTION_RATE,2,RoundingMode.CEILING);
-		this.catagoryId= item.getCatagoryId();
+	public StockItemDO(PurchaseOrderItemDO item){
 		this.catalogId = item.getCatalogId();
 		this.costPrice = item.getCostPrice().divide(ConstParams.DOLLAR_CONVERTION_RATE,2,RoundingMode.CEILING);
-		this.invoiceId = item.getInvoiceId();
 		this.itemCode = item.getItemCode();
 		this.itemDesc = item.getItemDesc();
 		this.itemName= item.getItemName();
-		this.shippingCost = item.getShippingCost().divide(ConstParams.DOLLAR_CONVERTION_RATE,2,RoundingMode.CEILING);
 		this.stockDate = new Date();
 		this.totalCost = item.getNetCostPrice().divide(ConstParams.DOLLAR_CONVERTION_RATE,2,RoundingMode.CEILING);
-		this.color= item.getColor();
 		this.embroidery= item.getEmbroidery();
 		
 	}

@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jndi.JndiTemplate;
+import org.springframework.orm.hibernate3.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -29,7 +30,7 @@ import org.springframework.core.env.Environment;
 public class PersistenceConfig {
 	
 	private static Logger log = LoggerFactory.getLogger(PersistenceConfig.class);
-    
+   
     
     
     
@@ -77,5 +78,8 @@ public class PersistenceConfig {
 	        		entityManagerFactory().getObject() );
 	        return transactionManager;
 	     }
+	     
+	     
+	     
 }
 
