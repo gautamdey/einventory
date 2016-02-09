@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 @Entity
 @Table(name = "tbl_customer")
 public class CustomerDO {
@@ -11,42 +12,51 @@ public class CustomerDO {
 	@Column(name = "custid")
 	private int custId;
 	
+	@Size(min = 1, max = 20)
 	@Column(name = "fname")
 	private String fName ;
 
+	@Size(min = 1, max = 20)
 	@Column(name = "lname")
 	private String lName ;
 
+	@Size(min = 0, max = 20)
 	@Column(name = "mname")
 	private String mName ;
 	
+	@Size(min = 0, max = 45)
 	@Column(name = "street")
 	private String street;
 	
+	@Size(min = 0, max = 10)
 	@Column(name = "houseno")
 	private String houseNo;
 
+	@Size(min = 0, max = 10)
 	@Column(name = "apt")
 	private String apt;
 	
+	@Size(min = 1, max = 45)
 	@Column(name = "city")
 	private String city;
 	
+	@Size(min = 1, max = 45)
 	@Column(name = "state")
 	private String state;
 	
-	
+	@Size(min = 1, max = 45)
 	@Column(name = "country")
 	private String country;
 	
+	@Size(min = 1, max = 10)
 	@Column(name = "phone")
 	private String phone;
 	
-	
+	@Size(min = 0, max = 10)
 	@Column(name = "mphone")
 	private String mphone;
 	
-	
+	@Size(min = 1, max = 50)
 	@Column(name = "email")
 	private String email;
 

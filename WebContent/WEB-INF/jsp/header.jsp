@@ -20,6 +20,7 @@
 		</div>
 		<!-- Collection of nav links, forms, and other content for toggling -->
 		<div id="navbarCollapse" class="collapse navbar-collapse">
+
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="/einventory-web/welcome.html">Home</a></li>
 				<li><a href="/einventory-web/invoice/listinvoice.html">Invoice</a></li>
@@ -40,14 +41,7 @@
 							href="/einventory-web/shipment/checkinshipmentstart.html">Receive
 								Shipment</a></li>
 					</ul></li>
-				<li class="dropdown"><a data-toggle="dropdown"
-					class="dropdown-toggle" href="#">Stock <b class="caret"></b></a>
-					<ul role="menu" class="dropdown-menu">
-						<li><a href="#">View Item Stock</a></li>
-						<li><a
-							href="/einventory-web/shipment/checkinshipmentstart.html">Receive
-								Shipment</a></li>
-					</ul></li>
+				
 			</ul>
 			<form role="search" class="navbar-form navbar-left">
 				<div class="form-group">
@@ -60,3 +54,10 @@
 		</div>
 	</nav>
 </div>
+<script type="text/javascript">
+$("ul li").click(function() {
+    $(this).parent().children().removeClass("active");
+    $(this).addClass("active");
+});
+
+</script>

@@ -57,7 +57,7 @@
 		</table>
 
 		<div id="browse_app">
-			<a class="btn btn-large btn-info" href="addcustomr.html">Add
+			<a class="btn btn-large btn-info" href="addcustomer.html">Add
 				Customer</a>
 		</div>
 	</div>
