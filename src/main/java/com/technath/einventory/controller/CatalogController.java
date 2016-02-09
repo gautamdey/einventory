@@ -15,13 +15,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.technath.einventory.dao.CatagoryDO;
 import com.technath.einventory.dao.CatalogDO;
-import com.technath.einventory.dao.InvoiceItemDO;
-import com.technath.einventory.dao.ItemDO;
-import com.technath.einventory.service.ListCatalog;
 
 @Controller
 public class CatalogController {

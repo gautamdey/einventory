@@ -1,4 +1,4 @@
-package com.technath.einventory.dao;
+package com.technath.einventory.entity;
 
 import java.math.BigDecimal;
 
@@ -7,20 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-//
-//'itemid','int(11)','NO','PRI',NULL,''
-//'itemocode','varchar(50)','NO','',NULL,''
-//'itemname','varchar(50)','YES','',NULL,''
-//'desc','varchar(45)','YES','',NULL,''
-//'catagoryid','varchar(50)','YES','',NULL,''
-//'catalogid','varchar(50)','YES','',NULL,''
-//'shippingcost','decimal(10,0)','YES','',NULL,''
-//'importduty','decimal(5,0)','YES','',NULL,''
-//'shipmentid','int(11)','NO','',NULL,''
-
 @Entity
-@Table(name = "tbl_items")
-public class ItemDO {
+@Table(name = "tbl_item_master")
+public class Item {
 	@Id
 	@Column(name = "itemid")
 	private int itemId;
@@ -154,11 +143,4 @@ public class ItemDO {
 	public void setShipmentId(long shipmentId) {
 		this.shipmentId = shipmentId;
 	}
-
-
-
-
-	
-	
 }
-

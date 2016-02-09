@@ -30,9 +30,7 @@ import com.technath.einventory.dao.CatagoryDO;
 import com.technath.einventory.dao.CatalogDO;
 import com.technath.einventory.dao.InvoiceDO;
 import com.technath.einventory.dao.InvoiceItemDO;
-import com.technath.einventory.dao.ItemDO;
 import com.technath.einventory.dao.SupplierDO;
-import com.technath.einventory.service.ListCatalog;
 
 @Controller
 @RequestMapping(value = "/invoice")

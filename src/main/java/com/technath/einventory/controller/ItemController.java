@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.technath.einventory.dao.ItemDO;
+import com.technath.einventory.entity.Item;
 @Controller
 public class ItemController {
 	@PersistenceContext
@@ -24,8 +24,8 @@ public class ItemController {
 	@RequestMapping("/listitems")
 	public String listCatalogy(Model model) {
 		Query query = entityManager.createQuery("select c from ItemDO c" );
-		List<ItemDO> resultList = query.getResultList();
-		for(ItemDO item :resultList){
+		List<Item> resultList = query.getResultList();
+		for(Item item :resultList){
 			System.out.println("Item name::"+ item.getItemName());
 		}
 		model.addAttribute("items",resultList);
@@ -35,11 +35,11 @@ public class ItemController {
 
 	@RequestMapping(value = "/additem", method = RequestMethod.GET)
 	public ModelAndView newItemGet(Model model) {
-		return new ModelAndView("additem", "command", new ItemDO());
+		return new ModelAndView("additem", "command", new Item());
 	}
 
 	@RequestMapping(value = "/additem", method = RequestMethod.POST)
-	public String newItemPost(@ModelAttribute("SpringWeb")ItemDO item, 
+	public String newItemPost(@ModelAttribute("SpringWeb")Item item, 
 			   ModelMap model) {
 		entityManager.persist(item);
 		entityManager.getTransaction().commit();		

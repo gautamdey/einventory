@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.technath.einventory.dao.CatagoryDO;
-import com.technath.einventory.dao.ItemDO;
-import com.technath.einventory.service.ListCatalog;
 
 @Controller
 public class CatagoryController {

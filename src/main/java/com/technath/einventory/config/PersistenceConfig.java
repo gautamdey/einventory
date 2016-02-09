@@ -34,7 +34,7 @@ public class PersistenceConfig {
     
     
     
-	  @Bean(name = "EINVENTORY_DB_JPA")
+	  @Bean(name = "localEntityManager")
 	   public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws NamingException, SQLException {
 	      LocalContainerEntityManagerFactoryBean entityManager = new LocalContainerEntityManagerFactoryBean();
 	      entityManager.setPackagesToScan(new String[] { "com.technath.einventory.dao" });	      
