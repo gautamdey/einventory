@@ -28,11 +28,12 @@
 						Order</a></li>
 				<li><a href="/einventory-web/customer/listcustomer.html">Customers</a></li>
 				<li class="dropdown"><a data-toggle="dropdown"
-					class="dropdown-toggle" href="#">Inventory Setup Management<b class="caret"></b></a>
+					class="dropdown-toggle" href="#">Configure Inventory<b class="caret"></b></a>
 					<ul role="menu" class="dropdown-menu">
 						<li><a href="/einventory-web/listcatagory.html">Category</a></li>
 						<li><a href="/einventory-web/listsupplier.html">Supplier</a></li>
 						<li><a href="/einventory-web/listcatalog.html">Catalog</a></li>
+						<li><a href="/einventory-web/item/listitem.html">Item</a></li>
 					</ul></li>
 				<li class="dropdown"><a data-toggle="dropdown"
 					class="dropdown-toggle" href="#">Stock Movement <b class="caret"></b></a>

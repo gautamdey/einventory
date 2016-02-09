@@ -15,9 +15,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <title>addcatagory</title>
 <style type="text/css">
-body {
-	background-image: url('http://crunchify.com/bg.png');
-}
+
 </style>
 </head>
 <body>
@@ -46,27 +44,18 @@ body {
 				<form:input path="itemDesc" />
 			</div>
 			<div>
-				<form:label path="catagoryId" for="catagoryId">Catagory</form:label>
-				<form:input path="catagoryId" />
+				<form:label path="categoryId" for="categoryId">Category</form:label>
+				<form:input path="categoryId" />
 			</div>
 			<div>
 				<form:label path="catalogId" for="catalogId">Catalog</form:label>
 				<form:input path="catalogId" />
 			</div>
 			<div>
-				<form:label path="shippingcost" for="shippingcost">shipping cost</form:label>
-				<form:input path="shippingcost" />
+				<form:label path="costPrice" for="costPrice">Cost Price</form:label>
+				<form:input path="costPrice" />
 			</div>
-			<div>
-				<form:label path="importduty" for="importduty">Import Duty</form:label>
-				<form:input path="importduty" />
-			</div>
-			<div>
-				<form:label path="shipmentid" for="shipmentid">Shipment Id </form:label>
-				<form:input path="importduty" />
-			</div>
-	@Column(name = "costprice")
-	private BigDecimal costPrice;
+
 			<button type="submit" class="btn btn-primary">Login</button>
 		</form:form>
 	</div>

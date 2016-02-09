@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -15,36 +15,41 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.technath.einventory.entity.Item;
+import com.technath.einventory.service.ItemService;
 @Controller
+@RequestMapping(value = "/item")
 public class ItemController {
 	@PersistenceContext
 	protected EntityManager entityManager;
+	protected ItemService itemService;
 
 
-	@RequestMapping("/listitems")
+	@Autowired(required=true)
+	@Qualifier(value="itemService")
+	public void setItemService(ItemService itemService) {
+		this.itemService = itemService;
+	}	 
+
+
+	@RequestMapping("/listitem")
 	public String listCatalogy(Model model) {
-		Query query = entityManager.createQuery("select c from ItemDO c" );
-		List<Item> resultList = query.getResultList();
-		for(Item item :resultList){
-			System.out.println("Item name::"+ item.getItemName());
-		}
+		List<Item> resultList = itemService.listItems();
 		model.addAttribute("items",resultList);
-		return "listitems";
+		return "listitem";
 	}
-	
 
-	@RequestMapping(value = "/additem", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/newitem", method = RequestMethod.GET)
 	public ModelAndView newItemGet(Model model) {
 		return new ModelAndView("additem", "command", new Item());
 	}
 
 	@RequestMapping(value = "/additem", method = RequestMethod.POST)
 	public String newItemPost(@ModelAttribute("SpringWeb")Item item, 
-			   ModelMap model) {
-		entityManager.persist(item);
-		entityManager.getTransaction().commit();		
-		return "resultnewitem";
+			ModelMap model) {
+		itemService.addItem(item);		
+		return "listitem";
 	}
 
-	
+
 }

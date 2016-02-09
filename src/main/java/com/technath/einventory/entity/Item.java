@@ -4,8 +4,14 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.technath.einventory.dao.CatagoryDO;
+import com.technath.einventory.dao.SupplierDO;
 
 @Entity
 @Table(name = "tbl_item_master")
@@ -23,22 +29,22 @@ public class Item {
 	@Column(name = "itemdesc")
 	private String itemDesc;
 	
-	@Column(name = "catagoryId")
-	private String catagoryId;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="categoryId")
+	private CatagoryDO category;
+	
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="supplierId")
+	private SupplierDO supplier;
 	
 	@Column(name = "catalogId")
 	private String catalogId;
 
-	@Column(name = "shippingcost")
-	private BigDecimal shippingCost;
 
-	@Column(name = "importduty")
-	private BigDecimal importDuty;
-
-
-	@Column(name = "shipmentid")
-	private long shipmentId;
-
+	
+	
 	@Column(name = "costprice")
 	private BigDecimal costPrice;
 
@@ -82,14 +88,20 @@ public class Item {
 	}
 
 
-	public String getCatagoryId() {
-		return catagoryId;
+
+
+
+	public CatagoryDO getCategory() {
+		return category;
 	}
 
 
-	public void setCatagoryId(String catagoryId) {
-		this.catagoryId = catagoryId;
+	public void setCategory(CatagoryDO category) {
+		this.category = category;
 	}
+
+
+
 
 
 	public String getCatalogId() {
@@ -99,19 +111,6 @@ public class Item {
 
 	public void setCatalogId(String catalogId) {
 		this.catalogId = catalogId;
-	}
-
-
-
-
-
-	public BigDecimal getShippingCost() {
-		return shippingCost;
-	}
-
-
-	public void setShippingCost(BigDecimal shippingCost) {
-		this.shippingCost = shippingCost;
 	}
 
 
@@ -125,22 +124,14 @@ public class Item {
 	}
 
 
-	public BigDecimal getImportDuty() {
-		return importDuty;
+	public SupplierDO getSupplier() {
+		return supplier;
 	}
 
 
-	public void setImportDuty(BigDecimal importDuty) {
-		this.importDuty = importDuty;
+	public void setSupplier(SupplierDO supplier) {
+		this.supplier = supplier;
 	}
 
 
-	public long getShipmentId() {
-		return shipmentId;
-	}
-
-
-	public void setShipmentId(long shipmentId) {
-		this.shipmentId = shipmentId;
-	}
 }
