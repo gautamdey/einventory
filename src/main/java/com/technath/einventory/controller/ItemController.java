@@ -20,8 +20,9 @@ import com.technath.einventory.service.SupplierService;
 @Controller
 @RequestMapping(value = "/item")
 public class ItemController {
+	
+	
 	protected ItemService itemService;
-
 	protected SupplierService supplierService;
 	protected CategoryService categoryService;
 	
@@ -34,20 +35,23 @@ public class ItemController {
 	}
 	
 	
-	
-	@Autowired(required=true)
-	@Qualifier(value="itemService")
-	public void setItemService(ItemService itemService) {
-		this.itemService = itemService;
-	}	 
-
-
-
+ 
 	@Autowired(required=true)
 	@Qualifier(value="supplierService")
 	public void setSupplierService(SupplierService supplierService) {
 		this.supplierService = supplierService;
 	}	
+	
+	
+	
+	@Autowired(required=true)
+	@Qualifier(value="itemService")
+	public void setItemService(ItemService itemService) {
+		this.itemService = itemService;
+	}
+
+
+
 	@RequestMapping("/listitem")
 	public String listCatalogy(Model model) {
 		List<Item> resultList = itemService.listItems();

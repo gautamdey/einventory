@@ -13,9 +13,9 @@
 }
 </style>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<title>addcatagory</title>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<title>add item</title>
 <style type="text/css">
-
 </style>
 </head>
 <body>
@@ -28,48 +28,57 @@
 	<div class="container">
 		<form:form method="POST" action="#"
 			class="bs-docs-example form-horizontal">
-			<div class="control-group warning">
+			<div class="control-group info">
 				<form:label path="itemCode" for="itemCode">Code</form:label>
 				<div class="controls">
 					<form:input path="itemCode" />
 				</div>
 			</div>
-			
-			<div>
+			<div class="control-group info">
 				<form:label path="itemName" for="itemName">Name</form:label>
-				<form:input path="itemName" />
+				<div class="controls">
+					<form:input path="itemName" />
+				</div>
 			</div>
-			<div>
+			<div class="control-group info">
 				<form:label path="itemDesc" for="itemDesc">Description</form:label>
-				<form:input path="itemDesc" />
+				<div class="controls">
+					<form:input path="itemDesc" />
+				</div>
 			</div>
 			<div class="control-group info">
-				<form:label path="categoryId" for="categoryId">Category</form:label>
+				<form:label path="category" for="category">Category</form:label>
 				<div class="controls">
-					<form:select path="categoryId">
-						<form:options items="${categories}" />
+					<form:select path="category">
+						<form:options itemLabel="catagoryName" items="${categories}" />
 					</form:select>
 				</div>
 			</div>
-			<div>
+			<div class="control-group info">
 				<form:label path="catalogId" for="catalogId">Catalog</form:label>
-				<form:input path="catalogId" />
-			</div>
-			<div>
-				<form:label path="costPrice" for="costPrice">Cost Price</form:label>
-				<form:input path="costPrice" />
-			</div>
-
-			<div class="control-group info">
-				<form:label path="suppilerId" for="supplierId">Supplier</form:label>
 				<div class="controls">
-					<form:select path="supplierId">
-						<form:options items="${suppliers}" />
+					<form:input path="catalogId" />
+				</div>
+			</div>
+			<div class="control-group info">
+				<form:label path="costPrice" for="costPrice">Cost Price</form:label>
+				<div class="controls">
+					<form:input path="costPrice" />
+				</div>
+			</div>
+			<div class="control-group info">
+				<form:label path="supplier" for="supplier">Supplier</form:label>
+				<div class="controls">
+					<form:select path="supplier">
+						<form:options itemLabel="supplierName" items="${suppliers}" />
 					</form:select>
 				</div>
 			</div>
-			<button type="submit" class="btn btn-primary">Login</button>
+			<div>
+				<button type="submit" class="btn btn-primary">Add Item</button>
+			</div>
 		</form:form>
+
 	</div>
 	<div>Footer</div>
 </body>
