@@ -1,4 +1,4 @@
-package com.technath.einventory.dao;
+package com.technath.einventory.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="tbl_supplier")
-public class SupplierDO {
+public class Supplier {
 	@Id
 	@Column(name = "supplierid")
 	private int supplierId;
@@ -106,8 +106,4 @@ public class SupplierDO {
 		this.phone2 = phone2;
 	}
 
-	
-	
-	
-	
 }

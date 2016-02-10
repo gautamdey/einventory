@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.technath.einventory.dao.InvoiceDO;
-import com.technath.einventory.dao.SupplierDO;
+import com.technath.einventory.entity.Supplier;
 
 @Controller
 public class SupplierController {
@@ -38,12 +38,12 @@ public class SupplierController {
 	@RequestMapping(value = "/addsupplier", method = RequestMethod.GET)
 	@Transactional
 	public ModelAndView newSupplierGet(Model model) {
-		return new ModelAndView("addsupplier", "command", new SupplierDO());
+		return new ModelAndView("addsupplier", "command", new Supplier());
 	}
 
 	@RequestMapping(value = "/addsupplier", method = RequestMethod.POST)
 	@Transactional
-	public ModelAndView newInvoicePost(@ModelAttribute("SpringWeb")SupplierDO supplier, 
+	public ModelAndView newInvoicePost(@ModelAttribute("SpringWeb")Supplier supplier, 
 			   ModelMap model) {
 		entityManager.persist(supplier);
 		entityManager.flush(); 

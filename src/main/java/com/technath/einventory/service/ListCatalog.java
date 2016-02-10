@@ -1,17 +1,14 @@
 package com.technath.einventory.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import com.technath.einventory.dao.CatagoryDO;
-import com.technath.einventory.entity.CatalogVO;
+import com.technath.einventory.entity.Category;
 @Service
 public class ListCatalog {
 	
@@ -19,9 +16,9 @@ public class ListCatalog {
 //	@PersistenceContext
 	protected EntityManager entityManager;
 	
-	public List<CatagoryDO> returnAllCatalog(){
-		Query query = entityManager.createQuery("select c from CatagoryDO c" );
-		List<CatagoryDO> resultList = query.getResultList();
+	public List<Category> returnAllCatalog(){
+		Query query = entityManager.createQuery("select c from Category c" );
+		List<Category> resultList = query.getResultList();
 
 		return resultList;
 	}

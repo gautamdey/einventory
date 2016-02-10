@@ -10,8 +10,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.technath.einventory.dao.CatagoryDO;
-import com.technath.einventory.dao.SupplierDO;
 
 @Entity
 @Table(name = "tbl_item_master")
@@ -32,12 +30,12 @@ public class Item {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="categoryId")
-	private CatagoryDO category;
+	private Category category;
 	
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="supplierId")
-	private SupplierDO supplier;
+	private Supplier supplier;
 	
 	@Column(name = "catalogId")
 	private String catalogId;
@@ -91,12 +89,12 @@ public class Item {
 
 
 
-	public CatagoryDO getCategory() {
+	public Category getCategory() {
 		return category;
 	}
 
 
-	public void setCategory(CatagoryDO category) {
+	public void setCategory(Category category) {
 		this.category = category;
 	}
 
@@ -124,12 +122,12 @@ public class Item {
 	}
 
 
-	public SupplierDO getSupplier() {
+	public Supplier getSupplier() {
 		return supplier;
 	}
 
 
-	public void setSupplier(SupplierDO supplier) {
+	public void setSupplier(Supplier supplier) {
 		this.supplier = supplier;
 	}
 

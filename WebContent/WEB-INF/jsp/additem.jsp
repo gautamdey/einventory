@@ -43,9 +43,13 @@
 				<form:label path="itemDesc" for="itemDesc">Description</form:label>
 				<form:input path="itemDesc" />
 			</div>
-			<div>
+			<div class="control-group info">
 				<form:label path="categoryId" for="categoryId">Category</form:label>
-				<form:input path="categoryId" />
+				<div class="controls">
+					<form:select path="categoryId">
+						<form:options items="${categories}" />
+					</form:select>
+				</div>
 			</div>
 			<div>
 				<form:label path="catalogId" for="catalogId">Catalog</form:label>
@@ -56,6 +60,14 @@
 				<form:input path="costPrice" />
 			</div>
 
+			<div class="control-group info">
+				<form:label path="suppilerId" for="supplierId">Supplier</form:label>
+				<div class="controls">
+					<form:select path="supplierId">
+						<form:options items="${suppliers}" />
+					</form:select>
+				</div>
+			</div>
 			<button type="submit" class="btn btn-primary">Login</button>
 		</form:form>
 	</div>

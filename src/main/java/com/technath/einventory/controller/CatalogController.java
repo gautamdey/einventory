@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.technath.einventory.dao.CatagoryDO;
 import com.technath.einventory.dao.CatalogDO;
+import com.technath.einventory.entity.Category;
 
 @Controller
 public class CatalogController {
@@ -31,7 +31,7 @@ public class CatalogController {
 		
 
 		Query query = entityManager.createQuery("select c from CatalogDO c" );
-		List<CatagoryDO> resultList = query.getResultList();
+		List<Category> resultList = query.getResultList();
 		model.addAttribute("catalogs",resultList);
 
 		return "listcatalog";
@@ -43,9 +43,9 @@ public class CatalogController {
 	public String newCatalogGet(Model model) {
 		CatalogDO emptyCatagoryDO = new CatalogDO();
 		Query query = entityManager.createQuery("select c from CatagoryDO c" );
-		List<CatagoryDO> resultList = query.getResultList();
+		List<Category> resultList = query.getResultList();
 		Map< Integer, String > categories = new HashMap();
-		for(CatagoryDO category : resultList){
+		for(Category category : resultList){
 			categories.put(new Integer(category.getCatagoryId()), category.getCatagoryName());
 			System.out.print(category.getCatagoryId());
 		}

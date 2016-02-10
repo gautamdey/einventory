@@ -26,11 +26,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.technath.einventory.config.ConstParams;
-import com.technath.einventory.dao.CatagoryDO;
 import com.technath.einventory.dao.CatalogDO;
 import com.technath.einventory.dao.InvoiceDO;
 import com.technath.einventory.dao.InvoiceItemDO;
-import com.technath.einventory.dao.SupplierDO;
+import com.technath.einventory.entity.Category;
+import com.technath.einventory.entity.Supplier;
 
 @Controller
 @RequestMapping(value = "/invoice")
@@ -54,9 +54,9 @@ public class InvoiceController {
 	@Transactional
 	public String newInvoiceGet(Model model) {
 		Query query = entityManager.createQuery("select c from SupplierDO c" );
-		List<SupplierDO> resultSupplier = query.getResultList();
+		List<Supplier> resultSupplier = query.getResultList();
 		Map< Integer, String > suppliers = new HashMap<Integer,String>();
-		for(SupplierDO supplier : resultSupplier){
+		for(Supplier supplier : resultSupplier){
 			suppliers.put(new Integer(supplier.getSupplierId()), supplier.getSupplierName());
 		}
 		InvoiceDO emptyItem = new InvoiceDO();
@@ -116,10 +116,10 @@ public class InvoiceController {
 		emptyItem.setInvoiceId(invoiceId);
 		emptyItem.setShippingCost(shippingCostPerItem);
 		
-		 query = entityManager.createQuery("select c from CatagoryDO c" );
-		List<CatagoryDO> resultList = query.getResultList();
+		 query = entityManager.createQuery("select c from Category c" );
+		List<Category> resultList = query.getResultList();
 		Map< Integer, String > categories = new HashMap<Integer,String>();
-		for(CatagoryDO category : resultList){
+		for(Category category : resultList){
 			categories.put(new Integer(category.getCatagoryId()), category.getCatagoryName());
 		}
 		

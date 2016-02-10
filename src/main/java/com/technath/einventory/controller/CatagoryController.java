@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.technath.einventory.dao.CatagoryDO;
+import com.technath.einventory.entity.Category;
+
 
 @Controller
 public class CatagoryController {
@@ -29,9 +30,9 @@ public class CatagoryController {
 		
 //			ListCatalog listCatalog = new ListCatalog();
 //			List<CatagoryDO> resultList=		listCatalog.returnAllCatalog();
-		Query query = entityManager.createQuery("select c from CatagoryDO c" );
-		List<CatagoryDO> resultList = query.getResultList();
-		for(CatagoryDO catagoryItem :resultList){
+		Query query = entityManager.createQuery("select c from Category c" );
+		List<Category> resultList = query.getResultList();
+		for(Category catagoryItem :resultList){
 			System.out.println("catagory name::"+ catagoryItem.getCatagoryName());
 		}
 		model.addAttribute("catagories",resultList);
@@ -46,12 +47,12 @@ public class CatagoryController {
 	@RequestMapping(value = "/addcatagory", method = RequestMethod.GET)
 	@Transactional
 	public ModelAndView newCatagoryGet(Model model) {
-		return new ModelAndView("addcatagory", "command", new CatagoryDO());
+		return new ModelAndView("addcatagory", "command", new Category());
 	}
 
 	@RequestMapping(value = "/addcatagory", method = RequestMethod.POST)
 	@Transactional
-	public String newCatagoryPost(@ModelAttribute("SpringWeb")CatagoryDO catagory, 
+	public String newCatagoryPost(@ModelAttribute("SpringWeb")Category catagory, 
 			   ModelMap model) {
 		entityManager.persist(catagory);
 		entityManager.flush(); 

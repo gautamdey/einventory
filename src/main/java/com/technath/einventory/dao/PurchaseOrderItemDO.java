@@ -16,6 +16,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.technath.einventory.entity.Category;
+
 @Entity
 @Table(name = "tbl_poitems")
 public class PurchaseOrderItemDO {
@@ -47,7 +49,7 @@ public class PurchaseOrderItemDO {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="catagoryId")
-	private CatagoryDO catagory;
+	private Category catagory;
 	
 
 	@Column(name = "catalogid")
@@ -154,11 +156,11 @@ public class PurchaseOrderItemDO {
 
 
 
-	public CatagoryDO getCatagory() {
+	public Category getCatagory() {
 		return catagory;
 	}
 
-	public void setCatagory(CatagoryDO catagory) {
+	public void setCatagory(Category catagory) {
 		this.catagory = catagory;
 	}
 

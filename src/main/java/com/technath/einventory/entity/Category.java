@@ -1,4 +1,5 @@
-package com.technath.einventory.dao;
+package com.technath.einventory.entity;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -6,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tbl_catagory")
-public class CatagoryDO {
+public class Category {
 
 	
 
@@ -42,8 +43,4 @@ public class CatagoryDO {
 	public void setCatDesc(String catDesc) {
 		this.catDesc = catDesc;
 	}
-
-	
-
-	
 }

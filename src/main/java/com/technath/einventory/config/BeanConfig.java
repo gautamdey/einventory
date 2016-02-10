@@ -5,8 +5,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import com.technath.einventory.service.CategoryService;
+import com.technath.einventory.service.CategoryServiceImpl;
 import com.technath.einventory.service.ItemService;
 import com.technath.einventory.service.ItemServiceImpl;
+import com.technath.einventory.service.SupplierService;
+import com.technath.einventory.service.SupplierServiceImpl;
 
 @EnableWebMvc
 @Configuration
@@ -20,4 +24,16 @@ public class BeanConfig {
 		return itemService;
 	}
 
+	@Bean(name = "supplierService")
+	public SupplierService getSupplierService() {
+		
+		SupplierService supplierService = new SupplierServiceImpl();
+		return supplierService;
+	}
+	@Bean(name = "categoryService")
+	public CategoryService getCategoryService() {
+		
+		CategoryService categoryService = new CategoryServiceImpl();
+		return categoryService;
+	}
 }

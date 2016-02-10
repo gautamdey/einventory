@@ -1,7 +1,6 @@
 package com.technath.einventory.controller;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +10,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -22,21 +23,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.technath.einventory.config.ConstParams;
-import com.technath.einventory.dao.CatagoryDO;
-import com.technath.einventory.dao.CatalogDO;
-import com.technath.einventory.dao.InvoiceDO;
-import com.technath.einventory.dao.InvoiceItemDO;
 import com.technath.einventory.dao.PurchaseOrderDO;
 import com.technath.einventory.dao.PurchaseOrderItemDO;
-import com.technath.einventory.dao.SupplierDO;
+import com.technath.einventory.entity.Category;
+import com.technath.einventory.entity.Supplier;
+import com.technath.einventory.service.CategoryService;
 
 @Controller
 @RequestMapping(value = "/purchaseorder")
 public class PurchaseOrderController {
 	@PersistenceContext
 	protected EntityManager entityManager;
-
+protected CategoryService categoryService;
+	
+	
+	
+	@Autowired(required=true)
+	@Qualifier(value="categoryService")
+	public void setCategoryService(CategoryService categoryService) {
+		this.categoryService = categoryService;
+	}
 
 	@RequestMapping("/listpo")
 	public String listSupplier(Model model) {
@@ -53,9 +59,9 @@ public class PurchaseOrderController {
 	public ModelAndView newPoGet(Model model) {
 
 		Query query = entityManager.createQuery("select c from SupplierDO c" );
-		List<SupplierDO> resultSupplier = query.getResultList();
+		List<Supplier> resultSupplier = query.getResultList();
 		Map< Integer, String > suppliers = new HashMap<Integer,String>();
-		for(SupplierDO supplier : resultSupplier){
+		for(Supplier supplier : resultSupplier){
 			suppliers.put(new Integer(supplier.getSupplierId()), supplier.getSupplierName());
 		}
 		PurchaseOrderDO emptyItem = new PurchaseOrderDO();
@@ -87,10 +93,9 @@ public class PurchaseOrderController {
 		emptyItem.setPo(po);
 		emptyItem.setUnitCost(new BigDecimal(0));
 
-		Query query = entityManager.createQuery("select c from CatagoryDO c" );
-		List<CatagoryDO> resultList = query.getResultList();
+		List<Category> resultList = categoryService.getAllCategory();
 		Map< Integer, String > categories = new HashMap<Integer,String>();
-		for(CatagoryDO category : resultList){
+		for(Category category : resultList){
 			categories.put(new Integer(category.getCatagoryId()), category.getCatagoryName());
 		}
 
@@ -110,10 +115,9 @@ public class PurchaseOrderController {
 		if (result.hasErrors()) {
 			System.out.println(result.getAllErrors().size());
 //			model.addAttribute("poItem",item);
-			Query query = entityManager.createQuery("select c from CatagoryDO c" );
-			List<CatagoryDO> resultList = query.getResultList();
+			List<Category> resultList = categoryService.getAllCategory();
 			Map< Integer, String > categories = new HashMap<Integer,String>();
-			for(CatagoryDO category : resultList){
+			for(Category category : resultList){
 				categories.put(new Integer(category.getCatagoryId()), category.getCatagoryName());
 			}
 			model.addAttribute("categories",categories);
