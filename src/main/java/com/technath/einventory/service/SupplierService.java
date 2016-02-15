@@ -7,5 +7,6 @@ import com.technath.einventory.entity.Supplier;
 public interface SupplierService {
 	
 	public List<Supplier> getAllSuppliers();
+	public Supplier findSupplierById(long supplierId);
 
 }

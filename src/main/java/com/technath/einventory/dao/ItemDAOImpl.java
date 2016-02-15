@@ -4,10 +4,12 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
 import com.technath.einventory.entity.Item;
+import com.technath.einventory.entity.Supplier;
 
 @Repository
 public class ItemDAOImpl implements ItemDAO{
@@ -36,5 +38,16 @@ public class ItemDAOImpl implements ItemDAO{
 		}
 		return list;
 	}
+
+	@Override
+	public List<Item> listItemBySupplier(Supplier supplier) {
+		List<Item> list = null ;
+		Query query = entityManager.createQuery("from Item where supplierId = :supplierId ");
+		query.setParameter("supplierId", supplier.getSupplierId());
+		list =query.getResultList(); 
+		return list;
+	}
+
+
 
 }

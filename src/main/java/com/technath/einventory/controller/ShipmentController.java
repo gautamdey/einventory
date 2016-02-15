@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.technath.einventory.config.ConstParams;
-import com.technath.einventory.dao.PurchaseOrderDO;
-import com.technath.einventory.dao.PurchaseOrderItemDO;
 import com.technath.einventory.dao.StockItemDO;
+import com.technath.einventory.entity.PurchaseOrder;
+import com.technath.einventory.entity.PurchaseOrderItem;
 import com.technath.einventory.entity.ShipmentCheckin;
 
 @Controller
@@ -35,7 +35,7 @@ public class ShipmentController {
 	@Transactional
 	public String checkinShipmentStartGet(Model model) {
 		Query query = entityManager.createQuery("select c from PurchaseOrderDO c" );
-		List<PurchaseOrderDO> resultList = query.getResultList();
+		List<PurchaseOrder> resultList = query.getResultList();
 		model.addAttribute("pos",resultList);
 		return "checkinshipmentstart";
 	}
@@ -45,7 +45,7 @@ public class ShipmentController {
 	public String checkinShipmentGet(@RequestParam("poId")int poId,Model model) {
 		Query query = entityManager.createQuery("select c from PurchaseOrderItemDO c where poid="+poId +" and received='N'");
 		System.out.println("inside checkinShipmentGet");
-		List<PurchaseOrderItemDO> resultList = query.getResultList();
+		List<PurchaseOrderItem> resultList = query.getResultList();
 		ShipmentCheckin checkinForm = new ShipmentCheckin();
 		checkinForm.setPoId(poId);
 		model.addAttribute("command",new ShipmentCheckin());
@@ -64,7 +64,7 @@ public class ShipmentController {
 		System.out.println("selectedItems" + selectedItems);
 		for (String poItemId :selectedItems){
 			System.out.println("itemId::" + poItemId);
-			PurchaseOrderItemDO poItem = (PurchaseOrderItemDO) entityManager.find(PurchaseOrderItemDO.class, Integer.parseInt(poItemId));
+			PurchaseOrderItem poItem = (PurchaseOrderItem) entityManager.find(PurchaseOrderItem.class, Integer.parseInt(poItemId));
 			System.out.println("received::"+poItem.getReceived());
 			poItem.setReceived(ConstParams.YES);
 			StockItemDO stockItem = new StockItemDO(poItem); 

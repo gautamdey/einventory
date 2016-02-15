@@ -2,9 +2,12 @@ package com.technath.einventory.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -71,9 +74,9 @@ public class ItemController {
 		model.addAttribute("categories",categories);	
 		return "additem";
 	}
-
-	@RequestMapping(value = "/additem", method = RequestMethod.POST)
-	public String newItemPost(@ModelAttribute("SpringWeb")Item item, 
+	@Transactional
+	@RequestMapping(value = "/newitem", method = RequestMethod.POST)
+	public String newItemPost(@ModelAttribute("SpringWeb") Item item, 
 			ModelMap model) {
 		itemService.addItem(item);		
 		return "listitem";

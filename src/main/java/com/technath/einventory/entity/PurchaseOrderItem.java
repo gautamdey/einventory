@@ -1,4 +1,4 @@
-package com.technath.einventory.dao;
+package com.technath.einventory.entity;
 
 import java.math.BigDecimal;
 
@@ -16,13 +16,11 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.technath.einventory.entity.Category;
-
 @Entity
 @Table(name = "tbl_poitems")
-public class PurchaseOrderItemDO {
+public class PurchaseOrderItem {
 
-	public PurchaseOrderItemDO(){
+	public PurchaseOrderItem(){
 		unitCost = new BigDecimal(0.0);
 		stitchingCost = new BigDecimal(0.0);
 		costPrice = new BigDecimal(0.0);
@@ -69,7 +67,7 @@ public class PurchaseOrderItemDO {
 
 	@ManyToOne
 	@JoinColumn(name="poid")
-	private PurchaseOrderDO po;
+	private PurchaseOrder po;
 
 	@Column(name = "embroidery")
 	private String embroidery ;
@@ -130,11 +128,11 @@ public class PurchaseOrderItemDO {
 		this.quantity = quantity;
 	}
 
-	public PurchaseOrderDO getPo() {
+	public PurchaseOrder getPo() {
 		return po;
 	}
 
-	public void setPo(PurchaseOrderDO po) {
+	public void setPo(PurchaseOrder po) {
 		this.po = po;
 	}
 

@@ -39,7 +39,6 @@ body {
 					<td>Name</td>
 					<td>Desc</td>
 					<td>Category</td>
-					<td>Catalog</td>
 					<td>Cost</td>
 					<td>Supplier</td>
 				</tr>
@@ -50,8 +49,8 @@ body {
 						<td>${item.itemCode}</td>
 						<td>${item.itemName}</td>
 						<td>${item.itemDesc}</td>
-						<td>${item.catagory.catagoryName}</td>
-						<td>${item.cost}</td>
+						<td>${item.category.catagoryName}</td>
+						<td>${item.costPrice}</td>
 						<td>${item.supplier.supplierName}</td>
 					</tr>
 

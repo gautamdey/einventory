@@ -15,13 +15,13 @@ public class SupplierDAOImpl implements SupplierDAO{
 	@Override
 	public List<Supplier> listSupplier() {
 		List<Supplier> list = null ;
-		if(entityManager!=null){
-			list = entityManager.createQuery("from Supplier").getResultList();
-		}
-		else{
-			System.out.println("entity manager is null");
-		}
+		list = entityManager.createQuery("from Supplier").getResultList();
 		return list;
+	}
+	@Override
+	public Supplier findSupplierById(long supplierId) {
+		Supplier s = entityManager.getReference(Supplier.class, supplierId);
+		return s;
 	}
 
 }

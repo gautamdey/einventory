@@ -7,5 +7,7 @@ import com.technath.einventory.entity.Supplier;
 public interface SupplierDAO {
 	
 	public List<Supplier>listSupplier();
+	public Supplier findSupplierById(long supplierId);
+	
 
 }

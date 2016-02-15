@@ -55,9 +55,9 @@ public class InvoiceController {
 	public String newInvoiceGet(Model model) {
 		Query query = entityManager.createQuery("select c from SupplierDO c" );
 		List<Supplier> resultSupplier = query.getResultList();
-		Map< Integer, String > suppliers = new HashMap<Integer,String>();
+		Map< Long, String > suppliers = new HashMap<Long,String>();
 		for(Supplier supplier : resultSupplier){
-			suppliers.put(new Integer(supplier.getSupplierId()), supplier.getSupplierName());
+			suppliers.put(new Long(supplier.getSupplierId()), supplier.getSupplierName());
 		}
 		InvoiceDO emptyItem = new InvoiceDO();
 

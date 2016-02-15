@@ -1,4 +1,4 @@
-package com.technath.einventory.dao;
+package com.technath.einventory.entity;
 
 
 import java.math.BigDecimal;
@@ -10,6 +10,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,32 +21,29 @@ import org.springframework.format.annotation.NumberFormat.Style;
 
 @Entity
 @Table(name = "tbl_purchaseorder")
-public class PurchaseOrderDO {
-	
-	public PurchaseOrderDO(){
-		supplierId=0;
+public class PurchaseOrder {
+
+	public PurchaseOrder(){
 		poDate = new Date();
 		importDuty = new BigDecimal(0.0);
 		shippingCost=new BigDecimal(0.0);
 		netAmount = new BigDecimal(0.0);
-		
+
 	}
 
 	@Id
 	@Column(name = "poid")
-	private int poId;
-	
+	private long poId;
+
 	@Column(name = "ponum")
 	private String poNum;
-	
-	
+
+
 
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Column(name = "podate")
 	private Date poDate;
 
-	@Column(name = "supplierid")
-	private int supplierId;
 
 	@Column(name = "importduty")
 	private BigDecimal importDuty;
@@ -58,16 +57,21 @@ public class PurchaseOrderDO {
 	@Column(name = "netamount")
 	private BigDecimal netAmount;
 
-	 @OneToMany(mappedBy="po")
-	private Set<PurchaseOrderItemDO> purchaseOrderItems = new HashSet<PurchaseOrderItemDO>(
+	@OneToMany(mappedBy="po")
+	private Set<PurchaseOrderItem> purchaseOrderItems = new HashSet<PurchaseOrderItem>(
 			0);
 
-	public int getPoId() {
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="supplierId")
+	private Supplier supplier;
+
+	public long getPoId() {
 		return poId;
 	}
 
 
-	public void setPoId(int poId) {
+	public void setPoId(long poId) {
 		this.poId = poId;
 	}
 
@@ -95,18 +99,6 @@ public class PurchaseOrderDO {
 	public void setItemCount(Integer itemCount) {
 		this.itemCount = itemCount;
 	}
-
-
-	public int getSupplierId() {
-		return supplierId;
-	}
-
-
-	public void setSupplierId(int supplierId) {
-		this.supplierId = supplierId;
-	}
-
-
 
 
 	public BigDecimal getImportDuty() {
@@ -151,18 +143,28 @@ public class PurchaseOrderDO {
 		this.netAmount = netAmount;
 	}
 
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tbl_purchaseorder")
-	public Set<PurchaseOrderItemDO> getPurchaseOrderItems() {
+	//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tbl_purchaseorder")
+	public Set<PurchaseOrderItem> getPurchaseOrderItems() {
 		return purchaseOrderItems;
 	}
 
 
-	public void setPurchaseOrderItems(Set<PurchaseOrderItemDO> purchaseOrderItems) {
+	public void setPurchaseOrderItems(Set<PurchaseOrderItem> purchaseOrderItems) {
 		this.purchaseOrderItems = purchaseOrderItems;
 	}
 
 
-	
-	
-	
+	public Supplier getSupplier() {
+		return supplier;
+	}
+
+
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
+	}
+
+
+
+
+
 }

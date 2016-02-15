@@ -23,20 +23,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.technath.einventory.dao.PurchaseOrderDO;
-import com.technath.einventory.dao.PurchaseOrderItemDO;
 import com.technath.einventory.entity.Category;
+import com.technath.einventory.entity.Item;
+import com.technath.einventory.entity.PurchaseOrder;
+import com.technath.einventory.entity.PurchaseOrderItem;
 import com.technath.einventory.entity.Supplier;
 import com.technath.einventory.service.CategoryService;
+import com.technath.einventory.service.ItemService;
+import com.technath.einventory.service.PurchaseOrderService;
+import com.technath.einventory.service.SupplierService;
 
 @Controller
 @RequestMapping(value = "/purchaseorder")
 public class PurchaseOrderController {
 	@PersistenceContext
 	protected EntityManager entityManager;
-protected CategoryService categoryService;
+	protected CategoryService categoryService;
+
+	protected ItemService itemService;
 	
+	protected SupplierService supplierService;
 	
+	protected PurchaseOrderService purchaseOrderService;
 	
 	@Autowired(required=true)
 	@Qualifier(value="categoryService")
@@ -44,11 +52,30 @@ protected CategoryService categoryService;
 		this.categoryService = categoryService;
 	}
 
+	@Autowired(required=true)
+	@Qualifier(value="itemService")
+	public void setItemService(ItemService itemService) {
+		this.itemService = itemService;
+	}
+
+	@Autowired(required=true)
+	@Qualifier(value="supplierService")
+	public void setSupplierService(SupplierService supplierService) {
+		this.supplierService = supplierService;
+	}
+
+	@Autowired(required=true)
+	@Qualifier(value="purchaseOrderService")
+	public void setPurchaseOrderService(PurchaseOrderService purchaseOrderService) {
+		this.purchaseOrderService = purchaseOrderService;
+	}
+
+	
 	@RequestMapping("/listpo")
 	public String listSupplier(Model model) {
 
-		Query query = entityManager.createQuery("select  p from PurchaseOrderDO as p left outer join fetch p.purchaseOrderItems");
-		List<PurchaseOrderDO> resultList = query.getResultList();
+		Query query = entityManager.createQuery("select  p from PurchaseOrder as p left outer join fetch p.purchaseOrderItems");
+		List<PurchaseOrder> resultList = query.getResultList();
 		model.addAttribute("pos",resultList);
 		return "listpo";
 	}
@@ -58,21 +85,21 @@ protected CategoryService categoryService;
 	@Transactional
 	public ModelAndView newPoGet(Model model) {
 
-		Query query = entityManager.createQuery("select c from SupplierDO c" );
+		Query query = entityManager.createQuery("select c from Supplier c" );
 		List<Supplier> resultSupplier = query.getResultList();
-		Map< Integer, String > suppliers = new HashMap<Integer,String>();
-		for(Supplier supplier : resultSupplier){
-			suppliers.put(new Integer(supplier.getSupplierId()), supplier.getSupplierName());
-		}
-		PurchaseOrderDO emptyItem = new PurchaseOrderDO();
+		//		Map< Integer, String > suppliers = new HashMap<Integer,String>();
+		//		for(Supplier supplier : resultSupplier){
+		//			suppliers.put(new Integer(supplier.getSupplierId()), supplier.getSupplierName());
+		//		}
+		PurchaseOrder emptyItem = new PurchaseOrder();
 		model.addAttribute("command",emptyItem);
-		model.addAttribute("suppliers",suppliers);	
-		return new ModelAndView("addpo", "command", new PurchaseOrderDO());
+		model.addAttribute("suppliers",resultSupplier);	
+		return new ModelAndView("addpo", "command", new PurchaseOrder());
 	}
 
 	@RequestMapping(value = "/addpo", method = RequestMethod.POST)
 	@Transactional
-	public ModelAndView newPoPost(@ModelAttribute("SpringWeb")PurchaseOrderDO purchaseOrder, 
+	public ModelAndView newPoPost(@ModelAttribute("SpringWeb")PurchaseOrder purchaseOrder, 
 			ModelMap model) {
 		entityManager.persist(purchaseOrder);
 		entityManager.flush(); 
@@ -83,45 +110,40 @@ protected CategoryService categoryService;
 
 	@RequestMapping(value = "/addpoitem", method = RequestMethod.GET)
 	@Transactional
-	public String newPurchaseOrderItemGet(@RequestParam("poid")int poId,Model model) throws Exception {
+	public String newPurchaseOrderItemGet(@RequestParam("poid")long poId,Model model) throws Exception {
 
-		PurchaseOrderDO po = new PurchaseOrderDO(); 
-		po.setPoId(poId);
-
-
-		PurchaseOrderItemDO emptyItem = new PurchaseOrderItemDO();
+		PurchaseOrder po = purchaseOrderService.findPurchaseOrderById(poId);
+//		PurchaseOrder po  = new PurchaseOrder();
+		PurchaseOrderItem emptyItem = new PurchaseOrderItem();
 		emptyItem.setPo(po);
 		emptyItem.setUnitCost(new BigDecimal(0));
+		List<Item> itemlist = itemService.listItemsBySupplier(po.getSupplier());
 
 		List<Category> resultList = categoryService.getAllCategory();
 		Map< Integer, String > categories = new HashMap<Integer,String>();
 		for(Category category : resultList){
 			categories.put(new Integer(category.getCatagoryId()), category.getCatagoryName());
 		}
-
-
 		model.addAttribute("poItem",emptyItem);
 		model.addAttribute("categories",categories);
-
-
-		//		return new ModelAndView("addinvoiceitem", "command", emptyItem);
+		model.addAttribute("items",itemlist);
 		return "addpoitem";
 	}
 
 	@RequestMapping(value = "/addpoitem", method = RequestMethod.POST)
 	@Transactional
-	public String newPurchaseOrderItemPost(@ModelAttribute("poItem") @Valid PurchaseOrderItemDO poItem, 
+	public String newPurchaseOrderItemPost(@ModelAttribute("poItem") @Valid PurchaseOrderItem poItem, 
 			BindingResult result,Model model) {
 		if (result.hasErrors()) {
 			System.out.println(result.getAllErrors().size());
-//			model.addAttribute("poItem",item);
+			//			model.addAttribute("poItem",item);
 			List<Category> resultList = categoryService.getAllCategory();
 			Map< Integer, String > categories = new HashMap<Integer,String>();
 			for(Category category : resultList){
 				categories.put(new Integer(category.getCatagoryId()), category.getCatagoryName());
 			}
 			model.addAttribute("categories",categories);
-			
+
 			return "addpoitem";
 		} else{
 			entityManager.persist(poItem);
@@ -137,8 +159,8 @@ protected CategoryService categoryService;
 	@RequestMapping("/viewpodetail")
 	public String purchaseOrderDetail(@RequestParam("poid")int poId,Model model) {
 
-		Query query = entityManager.createQuery("select c from PurchaseOrderItemDO c where c.po.poId="+poId );
-		List<PurchaseOrderItemDO> resultList = query.getResultList();
+		Query query = entityManager.createQuery("select c from PurchaseOrderItem c where c.po.poId="+poId );
+		List<PurchaseOrderItem> resultList = query.getResultList();
 		model.addAttribute("poitems",resultList);
 		model.addAttribute("poid",poId);
 

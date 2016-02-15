@@ -10,7 +10,7 @@ import javax.persistence.Table;
 public class Supplier {
 	@Id
 	@Column(name = "supplierid")
-	private int supplierId;
+	private long supplierId;
 	
 	@Column(name = "suppliername")
 	private String supplierName;
@@ -39,10 +39,10 @@ public class Supplier {
 	private String phone1;
 	@Column(name = "phone2")
 	private String phone2;
-	public int getSupplierId() {
+	public long getSupplierId() {
 		return supplierId;
 	}
-	public void setSupplierId(int supplierId) {
+	public void setSupplierId(long supplierId) {
 		this.supplierId = supplierId;
 	}
 	public String getSupplierName() {

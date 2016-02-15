@@ -9,6 +9,8 @@ import com.technath.einventory.service.CategoryService;
 import com.technath.einventory.service.CategoryServiceImpl;
 import com.technath.einventory.service.ItemService;
 import com.technath.einventory.service.ItemServiceImpl;
+import com.technath.einventory.service.PurchaseOrderService;
+import com.technath.einventory.service.PurchaseOrderServiceImpl;
 import com.technath.einventory.service.SupplierService;
 import com.technath.einventory.service.SupplierServiceImpl;
 
@@ -35,5 +37,11 @@ public class BeanConfig {
 		
 		CategoryService categoryService = new CategoryServiceImpl();
 		return categoryService;
+	}
+	@Bean(name = "purchaseOrderService")
+	public PurchaseOrderService getPurchaseOrderService() {
+		
+		PurchaseOrderService purchaseOrderService = new PurchaseOrderServiceImpl();
+		return purchaseOrderService;
 	}
 }

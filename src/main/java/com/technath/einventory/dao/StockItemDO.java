@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.technath.einventory.config.ConstParams;
+import com.technath.einventory.entity.PurchaseOrderItem;
 
 @Entity
 @Table(name = "tbl_stock_item")
@@ -24,7 +25,7 @@ public class StockItemDO {
 		totalCost = new BigDecimal(0.0);
 		
 	}
-	public StockItemDO(PurchaseOrderItemDO item){
+	public StockItemDO(PurchaseOrderItem item){
 		this.catalogId = item.getCatalogId();
 		this.costPrice = item.getCostPrice().divide(ConstParams.DOLLAR_CONVERTION_RATE,2,RoundingMode.CEILING);
 		this.itemCode = item.getItemCode();

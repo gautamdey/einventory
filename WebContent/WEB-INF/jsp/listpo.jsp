@@ -44,7 +44,7 @@
 					<tr>
 						<td>${po.poNum}</td>
 						<td>${po.poDate}</td>
-						<td>${po.supplierId}</td>
+						<td>${po.supplier.supplierName}</td>
 						<td>${po.importDuty}</td>
 						<td>${po.shippingCost}</td>
 						<td>${po.itemCount}</td>

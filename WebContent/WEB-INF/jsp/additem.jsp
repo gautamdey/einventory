@@ -47,10 +47,10 @@
 				</div>
 			</div>
 			<div class="control-group info">
-				<form:label path="category" for="category">Category</form:label>
+				<form:label path="category.catagoryId" for="category.catagoryId">Category</form:label>
 				<div class="controls">
-					<form:select path="category">
-						<form:options itemLabel="catagoryName" items="${categories}" />
+					<form:select path="category.catagoryId">
+						<form:options itemLabel="catagoryName" itemValue="catagoryId" items="${categories}" />
 					</form:select>
 				</div>
 			</div>
@@ -67,10 +67,10 @@
 				</div>
 			</div>
 			<div class="control-group info">
-				<form:label path="supplier" for="supplier">Supplier</form:label>
+				<form:label path="supplier.supplierId" for="supplier.supplierId">Supplier</form:label>
 				<div class="controls">
-					<form:select path="supplier">
-						<form:options itemLabel="supplierName" items="${suppliers}" />
+					<form:select path="supplier.supplierId">
+						<form:options itemLabel="supplierName" itemValue="supplierId" items="${suppliers}" />
 					</form:select>
 				</div>
 			</div>

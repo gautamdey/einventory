@@ -29,4 +29,13 @@ public class SupplierServiceImpl implements SupplierService{
 		return itemList;
 	}
 
+
+	@Override
+	public Supplier findSupplierById(long supplierId) {
+		Supplier supplier = supplierDAO.findSupplierById(supplierId);
+		return supplier;
+	}
+	
+	
+
 }

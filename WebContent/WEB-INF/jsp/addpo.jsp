@@ -41,10 +41,10 @@
 				</div>
 			</div>
 			<div class="control-group info">
-				<form:label path="supplierId" for="supplierId">Supplier</form:label>
+				<form:label path="supplier" for="supplier.supplierId">Supplier</form:label>
 				<div class="controls">
-					<form:select path="supplierId">
-						<form:options items="${suppliers}" />
+					<form:select path="supplier.supplierId">
+						<form:options itemLabel="supplierName" itemValue="supplierId" items="${suppliers}" />
 					</form:select>
 				</div>
 			</div>
