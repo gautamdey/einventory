@@ -32,10 +32,16 @@ public class PurchaseOrderItem {
 	@Id
 	@Column(name = "itemId")
 	private int itemId;
-	@NotEmpty
-	@Size(min = 1, max = 50)
-	@Column(name = "itemcode")
-	private String itemCode;
+	
+//	@NotEmpty
+//	@Size(min = 1, max = 50)
+//	@Column(name = "itemcode")
+//	private String itemCode;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="itemcode")
+	private Item item;
+	
 	@NotEmpty
 	@Size(min = 1, max = 50)
 	@Column(name = "itemname")
@@ -96,13 +102,13 @@ public class PurchaseOrderItem {
 		this.itemId = itemId;
 	}
 
-	public String getItemCode() {
-		return itemCode;
-	}
-
-	public void setItemCode(String itemCode) {
-		this.itemCode = itemCode;
-	}
+//	public String getItemCode() {
+//		return itemCode;
+//	}
+//
+//	public void setItemCode(String itemCode) {
+//		this.itemCode = itemCode;
+//	}
 
 	public BigDecimal getUnitCost() {
 		return unitCost;
@@ -213,14 +219,7 @@ public class PurchaseOrderItem {
 	public void setNetCostPrice(BigDecimal netCostPrice) {
 		this.netCostPrice = netCostPrice;
 	}
-	//	
-	//	public PurchaseOrderDO getPo() {
-	//		return po;
-	//	}
-	//
-	//	public void setPo(PurchaseOrderDO po) {
-	//		this.po = po;
-	//	}
+
 
 	public String getReceived() {
 		return received;
@@ -228,6 +227,14 @@ public class PurchaseOrderItem {
 
 	public void setReceived(String received) {
 		this.received = received;
+	}
+
+	public Item getItem() {
+		return item;
+	}
+
+	public void setItem(Item item) {
+		this.item = item;
 	}
 
 

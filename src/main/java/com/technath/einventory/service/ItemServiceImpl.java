@@ -47,4 +47,12 @@ public class ItemServiceImpl implements ItemService{
 		return itemList;
 	}
 
+
+
+	@Override
+	public Item findItemByItemCode(String itemCode) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

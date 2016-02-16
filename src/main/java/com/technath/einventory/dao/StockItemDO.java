@@ -28,7 +28,7 @@ public class StockItemDO {
 	public StockItemDO(PurchaseOrderItem item){
 		this.catalogId = item.getCatalogId();
 		this.costPrice = item.getCostPrice().divide(ConstParams.DOLLAR_CONVERTION_RATE,2,RoundingMode.CEILING);
-		this.itemCode = item.getItemCode();
+		this.itemCode = item.getItem().getItemCode();
 		this.itemDesc = item.getItemDesc();
 		this.itemName= item.getItemName();
 		this.stockDate = new Date();

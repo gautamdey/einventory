@@ -73,14 +73,24 @@ $(document).ready(function()
 			class="bs-docs-example form-horizontal" commandName="poItem">
 			<form:errors path="*" cssClass="errorblock" element="div" />
 			<!--  <div class="control-group info" modelAttribute="command">-->
-			<div class="control-group info" >
+	<%-- 		<div class="control-group info" >
 
 				<form:label path="itemCode" for="itemCode">Code</form:label>
 				<div class="controls">
 					<form:input path="itemCode" />
 					<form:errors path="itemCode" cssClass="error" />
 				</div>
+			</div> --%>
+			
+						<div class="control-group info">
+				<form:label path="item.itemCode" for="item.itemCode">Item</form:label>
+				<div class="controls">
+					<form:select path="item.itemCode">
+						<form:options itemLabel="itemCode" itemValue="itemCode" items="${items}" />
+					</form:select>
+				</div>
 			</div>
+			
 			<div class="control-group info">
 				<form:label path="itemName" for="itemName">Name</form:label>
 				<div class="controls">

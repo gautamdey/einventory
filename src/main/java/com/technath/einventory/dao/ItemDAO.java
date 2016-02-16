@@ -12,6 +12,7 @@ public interface ItemDAO{
 	public void updateItem(Item item);
 	public List<Item> listItem();
 	public List<Item> listItemBySupplier(Supplier supplier);
+	public Item findItemOrderItemCode(String itemCode);
 	
 
 }

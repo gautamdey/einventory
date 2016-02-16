@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `razzeldazzel` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `razzeldazzel`;
 -- MySQL dump 10.13  Distrib 5.7.9, for osx10.9 (x86_64)
 --
 -- Host: 127.0.0.1    Database: razzeldazzel
@@ -181,17 +183,18 @@ DROP TABLE IF EXISTS `tbl_item_master`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_item_master` (
-  `itemid` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `itemid` bigint(20) NOT NULL,
   `itemcode` varchar(50) NOT NULL,
   `itemname` varchar(50) DEFAULT NULL,
   `itemdesc` varchar(45) DEFAULT NULL,
-  `catagoryid` varchar(50) DEFAULT NULL,
+  `categoryid` varchar(50) DEFAULT NULL,
   `catalogid` varchar(50) DEFAULT NULL,
   `costprice` decimal(7,2) DEFAULT NULL,
-  `color` varchar(45) DEFAULT NULL,
-  `embroidery` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`itemid`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  `supplierid` mediumint(15) NOT NULL,
+  PRIMARY KEY (`itemid`),
+  KEY `FK_SUPPLIERID` (`supplierid`),
+  CONSTRAINT `fk_supplierid` FOREIGN KEY (`supplierid`) REFERENCES `tbl_supplier` (`supplierid`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -200,7 +203,7 @@ CREATE TABLE `tbl_item_master` (
 
 LOCK TABLES `tbl_item_master` WRITE;
 /*!40000 ALTER TABLE `tbl_item_master` DISABLE KEYS */;
-INSERT INTO `tbl_item_master` VALUES (1,'s1','s1','s1','1','1',NULL,NULL,NULL),(2,'s2','s2','s2','1','1',100.00,NULL,NULL);
+INSERT INTO `tbl_item_master` VALUES (0,'test1','test1','test1','1','11',100.00,1);
 /*!40000 ALTER TABLE `tbl_item_master` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -250,15 +253,17 @@ CREATE TABLE `tbl_poitems` (
   `stitchingcost` decimal(11,2) unsigned zerofill NOT NULL DEFAULT '000000000.00',
   `quantity` int(11) unsigned zerofill DEFAULT '00000000000',
   `costprice` decimal(11,2) unsigned zerofill DEFAULT '000000000.00',
-  `poid` varchar(100) NOT NULL,
+  `poid` int(11) NOT NULL,
   `embroidery` varchar(45) DEFAULT NULL,
   `stitchingdetail` varchar(200) DEFAULT NULL,
   `discount` decimal(4,2) unsigned zerofill DEFAULT '00.00',
   `netcostprice` decimal(11,2) unsigned zerofill DEFAULT '000000000.00',
   `received` varchar(1) NOT NULL DEFAULT 'N',
   PRIMARY KEY (`itemid`),
-  UNIQUE KEY `itemcode_UNIQUE` (`itemcode`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `itemcode_UNIQUE` (`itemcode`),
+  KEY `poid_idx` (`poid`),
+  CONSTRAINT `fk_poid` FOREIGN KEY (`poid`) REFERENCES `tbl_purchaseorder` (`poid`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -267,7 +272,7 @@ CREATE TABLE `tbl_poitems` (
 
 LOCK TABLES `tbl_poitems` WRITE;
 /*!40000 ALTER TABLE `tbl_poitems` DISABLE KEYS */;
-INSERT INTO `tbl_poitems` VALUES (1,'001','abc','abc','1','abc',000000100.00,000000010.00,00000000001,000000110.00,'1','abc','asb',02.00,000000108.00,'N');
+INSERT INTO `tbl_poitems` VALUES (2,'0','test1','test1','1','1',000000100.00,000000010.00,00000000002,000000210.00,2,'abc','abc',00.00,000000210.00,'N');
 /*!40000 ALTER TABLE `tbl_poitems` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -288,7 +293,7 @@ CREATE TABLE `tbl_purchaseorder` (
   `itemcount` int(11) NOT NULL DEFAULT '0',
   `netamount` decimal(12,2) NOT NULL DEFAULT '0.00',
   PRIMARY KEY (`poid`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -297,19 +302,19 @@ CREATE TABLE `tbl_purchaseorder` (
 
 LOCK TABLES `tbl_purchaseorder` WRITE;
 /*!40000 ALTER TABLE `tbl_purchaseorder` DISABLE KEYS */;
-INSERT INTO `tbl_purchaseorder` VALUES (1,'123','2015-12-12',2,10.00,10.00,2,10.00),(2,'10','2015-12-12',1,10.00,10.00,10,0.00);
+INSERT INTO `tbl_purchaseorder` VALUES (1,'123','2015-12-12',2,10.00,10.00,2,10.00),(2,'10','2015-12-12',1,10.00,10.00,10,0.00),(3,'100','2016-02-11',2,100.00,100.00,10,1000.00),(4,'100','2016-02-11',1,100.00,100.00,20,1000.00);
 /*!40000 ALTER TABLE `tbl_purchaseorder` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `tbl_stock_item`
+-- Table structure for table `tbl_stock_master`
 --
 
-DROP TABLE IF EXISTS `tbl_stock_item`;
+DROP TABLE IF EXISTS `tbl_stock_master`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbl_stock_item` (
-  `itemid` mediumint(9) NOT NULL,
+CREATE TABLE `tbl_stock_master` (
+  `itemid` bigint(20) NOT NULL,
   `itemcode` varchar(50) NOT NULL,
   `itemname` varchar(50) DEFAULT NULL,
   `itemdesc` varchar(45) DEFAULT NULL,
@@ -326,17 +331,17 @@ CREATE TABLE `tbl_stock_item` (
   `color` varchar(45) DEFAULT NULL,
   `embroidery` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`stockid`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tbl_stock_item`
+-- Dumping data for table `tbl_stock_master`
 --
 
-LOCK TABLES `tbl_stock_item` WRITE;
-/*!40000 ALTER TABLE `tbl_stock_item` DISABLE KEYS */;
-INSERT INTO `tbl_stock_item` VALUES (0,'test1','test1','asas','1','2',1.00,10.00,2.00,3.00,'0','6','2015-04-16 11:36:50',8,'black','black'),(0,'xyz1','xyz1','asdasd','2','2',1.67,0.17,16.67,20.50,'0','2','2015-04-22 23:10:27',13,NULL,NULL),(0,'xyz1','xyz1','ashashd','1','2',0.20,0.17,116.67,114.70,'0','2','2015-04-22 23:10:27',14,'asasdmn','asdmnasdn'),(0,'abcdef','abcd','something','1','2',0.20,0.02,20.00,19.82,'0','3','2015-04-29 16:02:26',15,'red','some work'),(0,'www','www','amasm','1','2',0.20,0.00,0.00,0.20,'0','3','2015-04-29 16:02:26',16,'black','amadd');
-/*!40000 ALTER TABLE `tbl_stock_item` ENABLE KEYS */;
+LOCK TABLES `tbl_stock_master` WRITE;
+/*!40000 ALTER TABLE `tbl_stock_master` DISABLE KEYS */;
+INSERT INTO `tbl_stock_master` VALUES (0,'test1','test1','asas','1','2',1.00,10.00,2.00,3.00,'0','6','2015-04-16 11:36:50',8,'black','black'),(0,'xyz1','xyz1','asdasd','2','2',1.67,0.17,16.67,20.50,'0','2','2015-04-22 23:10:27',13,NULL,NULL),(0,'xyz1','xyz1','ashashd','1','2',0.20,0.17,116.67,114.70,'0','2','2015-04-22 23:10:27',14,'asasdmn','asdmnasdn'),(0,'abcdef','abcd','something','1','2',0.20,0.02,20.00,19.82,'0','3','2015-04-29 16:02:26',15,'red','some work'),(0,'www','www','amasm','1','2',0.20,0.00,0.00,0.20,'0','3','2015-04-29 16:02:26',16,'black','amadd'),(0,'001','abc','abc',NULL,'abc',NULL,NULL,1.84,1.80,'0','0','2016-02-08 12:00:41',17,NULL,'abc'),(0,'001','abc','abc',NULL,'abc',NULL,NULL,1.84,1.80,'0','0','2016-02-08 12:00:51',18,NULL,'abc'),(0,'001','abc','abc',NULL,'abc',NULL,NULL,1.84,1.80,'0','0','2016-02-08 12:11:46',19,NULL,'abc');
+/*!40000 ALTER TABLE `tbl_stock_master` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -381,4 +386,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-02-03  8:30:26
+-- Dump completed on 2016-02-16 10:12:37

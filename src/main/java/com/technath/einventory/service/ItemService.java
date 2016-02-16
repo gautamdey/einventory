@@ -10,5 +10,6 @@ public interface ItemService {
 	public List<Item> listItems();
 	public void addItem(Item item);
 	public List<Item> listItemsBySupplier(Supplier supplier);
+	public Item findItemByItemCode(String itemCode);
 
 }

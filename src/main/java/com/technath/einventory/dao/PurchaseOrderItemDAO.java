@@ -1,7 +1,9 @@
 package com.technath.einventory.dao;
 
-public interface PurchaseOrderItemDAO {
-	
-	
+import com.technath.einventory.entity.PurchaseOrderItem;
 
+public interface PurchaseOrderItemDAO {
+
+
+	void addPoitem(PurchaseOrderItem poItem);
 }

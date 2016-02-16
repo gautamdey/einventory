@@ -74,7 +74,8 @@ public class PurchaseOrderController {
 	@RequestMapping("/listpo")
 	public String listSupplier(Model model) {
 
-		Query query = entityManager.createQuery("select  p from PurchaseOrder as p left outer join fetch p.purchaseOrderItems");
+//		Query query = entityManager.createQuery("select  p from PurchaseOrder as p left outer join fetch p.purchaseOrderItems");
+		Query query = entityManager.createQuery("select  p from PurchaseOrder as p");
 		List<PurchaseOrder> resultList = query.getResultList();
 		model.addAttribute("pos",resultList);
 		return "listpo";
@@ -113,7 +114,6 @@ public class PurchaseOrderController {
 	public String newPurchaseOrderItemGet(@RequestParam("poid")long poId,Model model) throws Exception {
 
 		PurchaseOrder po = purchaseOrderService.findPurchaseOrderById(poId);
-//		PurchaseOrder po  = new PurchaseOrder();
 		PurchaseOrderItem emptyItem = new PurchaseOrderItem();
 		emptyItem.setPo(po);
 		emptyItem.setUnitCost(new BigDecimal(0));
@@ -133,26 +133,11 @@ public class PurchaseOrderController {
 	@RequestMapping(value = "/addpoitem", method = RequestMethod.POST)
 	@Transactional
 	public String newPurchaseOrderItemPost(@ModelAttribute("poItem") @Valid PurchaseOrderItem poItem, 
-			BindingResult result,Model model) {
-		if (result.hasErrors()) {
-			System.out.println(result.getAllErrors().size());
-			//			model.addAttribute("poItem",item);
-			List<Category> resultList = categoryService.getAllCategory();
-			Map< Integer, String > categories = new HashMap<Integer,String>();
-			for(Category category : resultList){
-				categories.put(new Integer(category.getCatagoryId()), category.getCatagoryName());
-			}
-			model.addAttribute("categories",categories);
-
-			return "addpoitem";
-		} else{
-			entityManager.persist(poItem);
-			entityManager.flush(); 
-			ModelAndView mav = new ModelAndView();
-			mav.setViewName("resultaddpoitem");
-			mav.addObject("poId",poItem.getPo().getPoId());
+			Model model) throws Exception {
+		purchaseOrderService.addPurchaseOrderItem(poItem);
+	
 			return "resultaddpoitem";
-		}
+
 	}
 
 

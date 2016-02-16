@@ -48,6 +48,18 @@ public class ItemDAOImpl implements ItemDAO{
 		return list;
 	}
 
+	@Override
+	public Item findItemOrderItemCode(String itemCode) {
+		Query query = entityManager.createQuery("from Item where itemcode = :itemCode");
+		query.setParameter("itemCode", itemCode);
+		List<Item> itemList = query.getResultList();
+		Item tempItem = null;
+		if(itemList!=null){
+			tempItem = itemList.get(0);
+		}
+		return tempItem;
+	}
+
 
 
 }

@@ -53,7 +53,7 @@
 			<tbody>
 				<c:forEach var="poitem" items="${poitems}">
 					<tr>
-						<td>${poitem.itemCode}</td>
+						<td>${poitem.item.itemCode}</td>
 						<td>${poitem.itemName}</td>
 						<td>${poitem.itemDesc}</td>
 						<td>${poitem.catagory.catagoryName}</td>
