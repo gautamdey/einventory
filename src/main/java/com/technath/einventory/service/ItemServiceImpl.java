@@ -51,8 +51,9 @@ public class ItemServiceImpl implements ItemService{
 
 	@Override
 	public Item findItemByItemCode(String itemCode) {
-		// TODO Auto-generated method stub
-		return null;
+		Item item = null ;
+		item = itemDAO.findItemOrderItemCode(itemCode);
+		return item;
 	}
 
 }

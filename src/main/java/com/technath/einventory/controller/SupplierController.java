@@ -27,7 +27,7 @@ public class SupplierController {
 	@RequestMapping("/listsupplier")
 	public String listSupplier(Model model) {
 
-		Query query = entityManager.createQuery("select c from SupplierDO c" );
+		Query query = entityManager.createQuery("select c from Supplier c" );
 		List<InvoiceDO> resultList = query.getResultList();
 		model.addAttribute("suppliers",resultList);
 

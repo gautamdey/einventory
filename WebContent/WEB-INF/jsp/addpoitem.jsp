@@ -25,9 +25,10 @@
 	margin: 16px;
 }
 </style>
-<script type = "text/javascript" 
-         src = "http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script>
+
 $(document).ready(function()
 		{
 		    function updatePrice()
@@ -52,7 +53,29 @@ $(document).ready(function()
 		    $(document).on("change, keyup", "#stitchingCost", updatePrice);
 		    $(document).on("change, keyup", "#quantity", updatePrice);
 		    $(document).on("change, keyup", "#discount", updatePrice);
+
 		});
+$(document).ready(function() { 
+	$('#itemCode').change(
+			function() {
+				var ctx = "${pageContext.request.contextPath}"
+				var itemId = $(this).val();
+				alert("itemid:" + $(this).val() + " ctx:: "+ ctx);
+				$.getJSON(ctx+'/item/'+itemId, {
+					itemId : $(this).val(),
+					ajax : 'true'
+				},
+		function(data) {
+			alert("item name from rest:" + data.itemName);
+			$("#itemName").val(data.itemName);
+			$("#itemDesc").val(data.itemDesc);
+			$("#catagory.catagoryId").val(data.category.catagoryId);
+			
+			
+		});
+});
+});
+		
 </script>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -73,7 +96,7 @@ $(document).ready(function()
 			class="bs-docs-example form-horizontal" commandName="poItem">
 			<form:errors path="*" cssClass="errorblock" element="div" />
 			<!--  <div class="control-group info" modelAttribute="command">-->
-	<%-- 		<div class="control-group info" >
+			<%-- 		<div class="control-group info" >
 
 				<form:label path="itemCode" for="itemCode">Code</form:label>
 				<div class="controls">
@@ -81,16 +104,18 @@ $(document).ready(function()
 					<form:errors path="itemCode" cssClass="error" />
 				</div>
 			</div> --%>
-			
-						<div class="control-group info">
+
+			<div class="control-group info">
 				<form:label path="item.itemCode" for="item.itemCode">Item</form:label>
 				<div class="controls">
-					<form:select path="item.itemCode">
-						<form:options itemLabel="itemCode" itemValue="itemCode" items="${items}" />
+					<form:select path="item.itemCode" id="itemCode">
+						<form:option value="">&nbsp;</form:option>
+						<form:options itemLabel="itemCode" itemValue="itemCode"
+							items="${items}" />
 					</form:select>
 				</div>
 			</div>
-			
+
 			<div class="control-group info">
 				<form:label path="itemName" for="itemName">Name</form:label>
 				<div class="controls">
@@ -124,13 +149,13 @@ $(document).ready(function()
 			<div class="control-group info">
 				<form:label path="catalogId" for="catalogId">Catalog</form:label>
 				<div class="controls">
-				<form:input path="catalogId" />
+					<form:input path="catalogId" />
 				</div>
 			</div>
 			<div class="control-group info">
-				<form:label path="unitCost" for="unitCost" >Unit Cost</form:label>
+				<form:label path="unitCost" for="unitCost">Unit Cost</form:label>
 				<div class="controls">
-					<form:input path="unitCost"  />
+					<form:input path="unitCost" />
 				</div>
 			</div>
 			<div class="control-group info">
@@ -156,7 +181,7 @@ $(document).ready(function()
 			<div class="control-group info">
 				<form:label path="costPrice" for="costPrice">Cost</form:label>
 				<div class="controls">
-					<form:input path="costPrice" readonly="true"/>
+					<form:input path="costPrice" readonly="true" />
 				</div>
 			</div>
 
@@ -170,16 +195,16 @@ $(document).ready(function()
 			<div class="control-group info">
 				<form:label path="netCostPrice" for="netCostPrice">Net Cost Price </form:label>
 				<div class="controls">
-					<form:input path="netCostPrice" readonly="true"/>
+					<form:input path="netCostPrice" readonly="true" />
 				</div>
 			</div>
 
-			
-	 		<div class="control-group info">
+
+			<div class="control-group info">
 				<div class="controls">
-					<form:hidden path="po.poId"/>
+					<form:hidden path="po.poId" />
 				</div>
-			</div> 
+			</div>
 			<div>
 				<button type="submit" class="btn btn-primary">Add Item</button>
 			</div>

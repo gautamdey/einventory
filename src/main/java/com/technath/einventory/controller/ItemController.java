@@ -11,8 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.technath.einventory.entity.Category;
 import com.technath.einventory.entity.Item;
@@ -23,30 +26,30 @@ import com.technath.einventory.service.SupplierService;
 @Controller
 @RequestMapping(value = "/item")
 public class ItemController {
-	
-	
+
+
 	protected ItemService itemService;
 	protected SupplierService supplierService;
 	protected CategoryService categoryService;
-	
-	
-	
+
+
+
 	@Autowired(required=true)
 	@Qualifier(value="categoryService")
 	public void setCategoryService(CategoryService categoryService) {
 		this.categoryService = categoryService;
 	}
-	
-	
- 
+
+
+
 	@Autowired(required=true)
 	@Qualifier(value="supplierService")
 	public void setSupplierService(SupplierService supplierService) {
 		this.supplierService = supplierService;
 	}	
-	
-	
-	
+
+
+
 	@Autowired(required=true)
 	@Qualifier(value="itemService")
 	public void setItemService(ItemService itemService) {
@@ -65,7 +68,7 @@ public class ItemController {
 
 	@RequestMapping(value = "/newitem", method = RequestMethod.GET)
 	public String newItemGet(Model model) {
-		
+
 		List<Supplier> suppliers = supplierService.getAllSuppliers();
 		List<Category> categories = categoryService.getAllCategory();
 		Item emptyItem = new Item();
@@ -82,5 +85,23 @@ public class ItemController {
 		return "listitem";
 	}
 
+
+
+
+	@RequestMapping(value = "/{itemCode}", method = RequestMethod.GET)
+	public @ResponseBody
+	Item getItemById(@PathVariable String itemCode){
+		//String itemId = "testing";
+		System.out.println("Get Rest call with itemid=" + itemCode);
+		Item item = itemService.findItemByItemCode(itemCode);
+		if(item!=null){
+			return item;	
+		}
+		else{
+			System.out.println("No item found with itemCode: "+ itemCode);
+			return null;
+		}
+
+	}
 
 }
